@@ -1,0 +1,136 @@
+/*
+ * Venture Studios: capa de marca sobre Dawn.
+ *
+ * Se carga justo después de base.css (ver layout/theme.liquid), así que solo
+ * sobrescribe lo necesario y no modifica los archivos de Dawn.
+ * Los colores base salen de los esquemas de color (config/settings_data.json);
+ * las tipografías, de los selectores de fuente del editor del tema.
+ *
+ * Fase 1: tipografía, botones, etiquetas y detalles de marca.
+ * La cabecera, la portada, las colecciones y la ficha de producto llegan en fases posteriores.
+ */
+
+:root {
+  /* Vino de acento (RGB) para detalles puntuales; los fondos usan los esquemas de color. */
+  --venture-accent: 107, 36, 51;
+  --venture-accent-text-on-dark: 217, 163, 174;
+}
+
+/* ---------- Selección de texto ---------- */
+
+::selection {
+  background: rgb(var(--venture-accent));
+  color: #f2eee7;
+}
+
+/* ---------- Texto de lectura (Montserrat) ---------- */
+
+body {
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (min-width: 750px) {
+  body {
+    font-size: 1.5rem;
+  }
+}
+
+/* ---------- Titulares (Cormorant Garamond en capitales) ---------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.h0,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.hxxl,
+.hxl {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+
+h4,
+h5,
+.h4,
+.h5 {
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Etiquetas y textos pequeños con mucho espaciado ---------- */
+
+.caption-with-letter-spacing,
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* ---------- Botones ---------- */
+
+.button,
+.shopify-challenge__button,
+.customer button,
+button.shopify-payment-button__button--unbranded {
+  min-height: calc(4.8rem + var(--buttons-border-width) * 2);
+  padding: 0 3.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.button--tertiary {
+  letter-spacing: 0.2em;
+}
+
+/* ---------- Etiquetas de producto ---------- */
+
+.badge {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.6rem 1rem;
+}
+
+/* ---------- Tarjetas ---------- */
+
+/* Nombre de producto: sobrio, en el tipo de texto y en mayúsculas. */
+.product-card-wrapper .card__heading {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+}
+
+/* Colecciones: el titular conserva la serif de marca. */
+.collection-card-wrapper .card__heading {
+  font-size: 2.2rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Enlaces en textos enriquecidos ---------- */
+
+/* El vino de acento solo sobre fondos claros (esquemas 1 y 2): sobre oscuro no tiene contraste. */
+.color-scheme-1 .rte a:not(.button),
+.color-scheme-2 .rte a:not(.button) {
+  color: rgb(var(--venture-accent));
+}
+
+.color-scheme-3 .rte a:not(.button),
+.color-scheme-4 .rte a:not(.button),
+.color-scheme-5 .rte a:not(.button) {
+  color: rgb(var(--venture-accent-text-on-dark));
+}
