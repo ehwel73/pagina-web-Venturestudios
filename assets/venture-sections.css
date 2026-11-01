@@ -86,10 +86,26 @@
 
 .venture-hero__eyebrow {
   margin: 0 0 1.6rem;
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-hero__eyebrow {
+    font-size: 1.7rem;
+  }
+}
+
+/* Sobre foto: sombra suave para que el texto se lea en zonas claras y oscuras. */
+.venture-hero--has-image .venture-hero__eyebrow,
+.venture-hero--has-image .venture-hero__text {
+  text-shadow: 0 0.1rem 1.2rem rgba(22, 21, 19, 0.6), 0 0 0.3rem rgba(22, 21, 19, 0.35);
+}
+
+.venture-hero--has-image .venture-hero__heading {
+  text-shadow: 0 0.2rem 2.4rem rgba(22, 21, 19, 0.35);
 }
 
 .venture-hero__heading {
