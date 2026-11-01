@@ -20,7 +20,8 @@
         "overlay_opacity": 15,
         "content_position": "center",
         "color_scheme": "scheme-2",
-        "image_position": "object-position: center center;"
+        "image_position": "object-position: center center;",
+        "use_test_image": true
       }
     },
     "featured_collection": {

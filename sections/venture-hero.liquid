@@ -8,7 +8,7 @@
 
 {%- liquid
   assign has_image = false
-  if section.settings.image != blank
+  if section.settings.image != blank or section.settings.use_test_image
     assign has_image = true
   endif
 -%}
@@ -19,6 +19,21 @@
 >
   {%- if has_image -%}
     <div class="venture-hero__media">
+      {%- if section.settings.image == blank -%}
+        {%- comment -%} Foto de prueba incluida en el tema; se sustituye eligiendo una imagen en el editor. {%- endcomment -%}
+        <img
+          class="venture-hero__image"
+          src="{{ 'venture-hero-prueba.jpg' | asset_img_url: '1500x' }}"
+          srcset="{{ 'venture-hero-prueba.jpg' | asset_img_url: '750x' }} 750w, {{ 'venture-hero-prueba.jpg' | asset_img_url: '1100x' }} 1100w, {{ 'venture-hero-prueba.jpg' | asset_img_url: '1500x' }} 1500w, {{ 'venture-hero-prueba.jpg' | asset_url }} 2400w"
+          sizes="100vw"
+          width="2400"
+          height="1600"
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          style="{{ section.settings.image_position }}"
+        >
+      {%- else -%}
       {%- liquid
         assign desktop_class = 'venture-hero__image'
         if section.settings.image_mobile != blank
@@ -46,6 +61,7 @@
             sizes: '100vw',
             loading: 'eager'
         }}
+      {%- endif -%}
       {%- endif -%}
     </div>
   {%- endif -%}
@@ -95,6 +111,13 @@
       "id": "image_mobile",
       "label": "Imagen para móvil",
       "info": "Opcional. Recomendado en vertical (4:5)."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_test_image",
+      "label": "Usar la foto de prueba del tema",
+      "info": "Solo se usa si no hay una imagen elegida arriba.",
+      "default": false
     },
     {
       "type": "select",
