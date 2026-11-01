@@ -1,0 +1,114 @@
+{%- comment -%}
+  Venture Studios: franja de texto en movimiento (bucle continuo).
+  Cada bloque es un texto. Se detiene al pasar el ratón y respeta "reducir movimiento" del sistema.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+{%- capture items -%}
+  {%- for block in section.blocks -%}
+    <span class="venture-marquee__item" {{ block.shopify_attributes }}>
+      {%- if block.settings.link != blank -%}
+        <a href="{{ block.settings.link }}" class="venture-marquee__link">{{ block.settings.text | escape }}</a>
+      {%- else -%}
+        {{ block.settings.text | escape }}
+      {%- endif -%}
+    </span>
+    <span class="venture-marquee__separator" aria-hidden="true"></span>
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div
+  class="venture-marquee color-{{ section.settings.color_scheme }} gradient venture-marquee--{{ section.settings.size }}{% if section.settings.show_borders %} venture-marquee--borders{% endif %}"
+  style="--venture-marquee-duration: {{ section.settings.speed }}s;"
+>
+  {%- if section.blocks.size > 0 -%}
+    <div class="venture-marquee__track{% if section.settings.direction == 'right' %} venture-marquee__track--reverse{% endif %}">
+      <div class="venture-marquee__group">{{ items }}{{ items }}</div>
+      <div class="venture-marquee__group" aria-hidden="true">{{ items }}{{ items }}</div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "VS · Texto en movimiento",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Duración de una vuelta",
+      "info": "Más segundos, más lento.",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Dirección",
+      "options": [
+        { "value": "left", "label": "Hacia la izquierda" },
+        { "value": "right", "label": "Hacia la derecha" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Tamaño del texto",
+      "options": [
+        { "value": "small", "label": "Pequeño" },
+        { "value": "large", "label": "Grande" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_borders",
+      "label": "Líneas arriba y abajo",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Texto",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Venture Studios"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Texto en movimiento",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Venture Studios" } },
+        { "type": "item", "settings": { "text": "Nueva colección" } },
+        { "type": "item", "settings": { "text": "Ropa de calle" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

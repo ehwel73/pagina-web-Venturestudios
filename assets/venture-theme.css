@@ -309,3 +309,27 @@ button.shopify-payment-button__button--unbranded {
 .footer.color-scheme-2 {
   border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
 }
+
+/* ---------- Botones de contorno (look juvenil) ---------- */
+
+/* Los esquemas claros pintan los botones con el fondo y el texto del esquema: quedan de contorno.
+   Al pasar el ratón se rellenan. */
+.color-scheme-1 .button:not(.button--tertiary):hover,
+.color-scheme-2 .button:not(.button--tertiary):hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.button {
+  font-weight: 500;
+}
+
+/* Las acciones de compra se mantienen rellenas para que destaquen. */
+.product-form__submit,
+.cart__checkout-button,
+#checkout,
+#CartDrawer-Checkout {
+  --color-button: var(--color-foreground);
+  --color-button-text: var(--color-background);
+  --alpha-button-background: 1;
+}

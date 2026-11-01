@@ -32,55 +32,23 @@
         "show_description": false,
         "description_style": "body",
         "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
+        "products_to_show": 9,
+        "columns_desktop": 3,
         "color_scheme": "scheme-1",
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "link",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 72,
+        "columns_mobile": "1",
+        "padding_top": 56,
         "padding_bottom": 56
-      }
-    },
-    "declaracion": {
-      "type": "rich-text",
-      "blocks": {
-        "caption": {
-          "type": "caption",
-          "settings": {
-            "caption": "Venture Studios",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "small"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Ropa de calle con mirada editorial",
-            "heading_size": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "caption",
-        "heading"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-2",
-        "full_width": true,
-        "padding_top": 96,
-        "padding_bottom": 96
       }
     },
     "editorial": {
@@ -91,7 +59,7 @@
         "text": "<p>Cuenta aquí qué es Venture Studios, cómo trabajáis y qué hace distintas vuestras prendas.</p>",
         "link_label": "Conocer la marca",
         "image_side": "left",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -122,19 +90,54 @@
         "heading_size": "h1",
         "image_ratio": "portrait",
         "columns_desktop": 3,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "show_view_all": false,
         "columns_mobile": "1",
         "swipe_on_mobile": true,
         "padding_top": 72,
         "padding_bottom": 80
       }
+    },
+    "franja": {
+      "type": "venture-marquee",
+      "blocks": {
+        "texto_1": {
+          "type": "item",
+          "settings": {
+            "text": "Venture Studios"
+          }
+        },
+        "texto_2": {
+          "type": "item",
+          "settings": {
+            "text": "Nueva colección"
+          }
+        },
+        "texto_3": {
+          "type": "item",
+          "settings": {
+            "text": "Ropa de calle"
+          }
+        }
+      },
+      "block_order": [
+        "texto_1",
+        "texto_2",
+        "texto_3"
+      ],
+      "settings": {
+        "speed": 30,
+        "direction": "left",
+        "size": "small",
+        "show_borders": true,
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
     "venture_hero",
+    "franja",
     "featured_collection",
-    "declaracion",
     "editorial",
     "colecciones"
   ]
