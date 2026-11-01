@@ -7,7 +7,8 @@
  * las tipografías, de los selectores de fuente del editor del tema.
  *
  * Fase 1: tipografía, botones, etiquetas y detalles de marca.
- * La cabecera, la portada, las colecciones y la ficha de producto llegan en fases posteriores.
+ * Fase 2: barra de anuncios, cabecera y pie.
+ * La portada, las colecciones y la ficha de producto llegan en fases posteriores.
  */
 
 :root {
@@ -133,4 +134,115 @@ button.shopify-payment-button__button--unbranded {
 .color-scheme-4 .rte a:not(.button),
 .color-scheme-5 .rte a:not(.button) {
   color: rgb(var(--venture-accent-text-on-dark));
+}
+
+/* =========================================================
+ * Fase 2: barra de anuncios, cabecera y pie
+ * ========================================================= */
+
+/* ---------- Barra de anuncios (esquema vino profundo) ---------- */
+
+.announcement-bar__message {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  padding: 0.9rem 0;
+}
+
+/* ---------- Cabecera ---------- */
+
+/* Nombre de la tienda cuando aún no hay logo subido: serif de marca en capitales. */
+.header__heading-link .h2 {
+  font-size: 2.2rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+@media screen and (min-width: 990px) {
+  .header__heading-link .h2 {
+    font-size: 2.6rem;
+  }
+}
+
+/* Navegación de escritorio y menú móvil en mayúsculas con espaciado amplio. */
+.header__menu-item,
+.header__submenu .header__menu-item,
+.mega-menu__link,
+.menu-drawer__menu-item {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.menu-drawer__menu-item {
+  font-size: 1.3rem;
+  padding-top: 1.4rem;
+  padding-bottom: 1.4rem;
+}
+
+/* Subrayado fino en vino para el elemento activo y al pasar el ratón. */
+.header__menu-item:hover span,
+.header__active-menu-item {
+  text-decoration: none;
+  box-shadow: inset 0 -1px 0 rgb(var(--venture-accent));
+}
+
+.header__icon .svg-wrapper svg {
+  stroke-width: 0.6;
+}
+
+.cart-count-bubble {
+  background-color: rgb(var(--venture-accent));
+  color: #f2eee7;
+}
+
+/* ---------- Pie ---------- */
+
+.footer-block__heading {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.footer-block__newsletter .footer-block__heading {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: 2.6rem;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.footer-block__details-content .list-menu__item--link {
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Sobre los esquemas oscuros, enlaces del pie en rosa vino al pasar el ratón. */
+.footer.color-scheme-3 .list-menu__item--link:hover,
+.footer.color-scheme-4 .list-menu__item--link:hover,
+.footer.color-scheme-5 .list-menu__item--link:hover,
+.footer.color-scheme-3 .list-menu__item--active,
+.footer.color-scheme-4 .list-menu__item--active,
+.footer.color-scheme-5 .list-menu__item--active {
+  color: rgb(var(--venture-accent-text-on-dark));
+  text-decoration: none;
+}
+
+.footer__copyright {
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
