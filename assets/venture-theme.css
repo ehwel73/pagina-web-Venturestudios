@@ -289,7 +289,7 @@ button.shopify-payment-button__button--unbranded {
 .header-wrapper.color-scheme-4 .cart-count-bubble,
 .header-wrapper.color-scheme-5 .cart-count-bubble {
   background-color: #f2eee7;
-  color: #4a1a25;
+  color: rgb(var(--color-background));
 }
 
 /* Línea fina entre la barra de anuncios y la cabecera cuando comparten color. */
