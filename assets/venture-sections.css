@@ -311,3 +311,15 @@
   height: 0.3rem;
   margin: 0 2.4rem;
 }
+
+/* Centrado: mismo espacio arriba y abajo, compensando la cabecera flotante. */
+.venture-hero__content--center {
+  padding-top: 0;
+  padding-bottom: 14rem;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-hero__content--center {
+    padding-bottom: 14rem;
+  }
+}
