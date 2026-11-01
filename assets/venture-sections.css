@@ -22,7 +22,12 @@
 }
 
 .venture-hero--full {
-  min-height: calc(100svh - var(--venture-header-offset, 12rem));
+  min-height: 100svh;
+}
+
+/* La cabecera flota encima: el texto de la portada empieza por debajo de ella. */
+.venture-hero {
+  padding-top: 14rem;
 }
 
 .venture-hero__media {

@@ -345,3 +345,71 @@ button.shopify-payment-button__button--unbranded {
   --color-button-text: var(--color-background);
   --alpha-button-background: 1;
 }
+
+/* =========================================================
+ * Cabecera flotante: anuncio + barra del logo en una tarjeta
+ * con margen, que se queda fija arriba al hacer scroll.
+ * En la portada flota encima de la foto principal.
+ * ========================================================= */
+
+.venture-header-float {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  padding: 0.8rem 0.8rem 0;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-header-float {
+    padding: 1.6rem 1.6rem 0;
+  }
+}
+
+/* Esquinas: arriba la barra de anuncios, abajo la del logo. */
+.venture-header-float .venture-marquee {
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: rgba(231, 225, 214, 0.82);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.venture-header-float .header-wrapper {
+  border-radius: 0 0 0.8rem 0.8rem;
+  box-shadow: 0 1rem 3rem rgba(22, 21, 19, 0.12);
+}
+
+/* Si no hay barra de anuncios, la del logo lleva las cuatro esquinas. */
+.venture-header-float > .shopify-section:first-child .header-wrapper {
+  border-radius: 0.8rem;
+}
+
+/* El menú móvil hereda la esquina inferior de la tarjeta. */
+.venture-header-float .menu-drawer {
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+/* Portada: la tarjeta no ocupa sitio y la foto principal sube hasta arriba, por detrás. */
+.template-index .venture-header-float {
+  height: 0;
+  padding: 0;
+}
+
+.template-index .venture-header-float > .shopify-section {
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+}
+
+.template-index .venture-header-float > .shopify-section:first-child {
+  padding-top: 0.8rem;
+}
+
+@media screen and (min-width: 750px) {
+  .template-index .venture-header-float > .shopify-section {
+    margin-left: 1.6rem;
+    margin-right: 1.6rem;
+  }
+
+  .template-index .venture-header-float > .shopify-section:first-child {
+    padding-top: 1.6rem;
+  }
+}
