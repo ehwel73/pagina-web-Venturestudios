@@ -12,35 +12,73 @@
     "venture_hero": {
       "type": "venture-hero",
       "settings": {
+        "use_test_image": true,
+        "image_position": "object-position: center center;",
+        "overlay_opacity": 15,
+        "height": "full",
         "eyebrow": "Nueva colección",
-        "heading": "Venture Studios",
+        "heading": "Invierno",
+        "text": "",
         "button_label": "Ver colección",
         "button_link": "shopify://collections/all",
-        "height": "full",
-        "overlay_opacity": 15,
         "content_position": "center",
-        "color_scheme": "scheme-2",
-        "image_position": "object-position: center center;",
-        "use_test_image": true
+        "color_scheme": "scheme-2"
+      }
+    },
+    "franja": {
+      "type": "venture-marquee",
+      "blocks": {
+        "texto_1": {
+          "type": "item",
+          "settings": {
+            "text": "Venture Studios",
+            "link": ""
+          }
+        },
+        "texto_2": {
+          "type": "item",
+          "settings": {
+            "text": "Nueva colección",
+            "link": ""
+          }
+        },
+        "texto_3": {
+          "type": "item",
+          "settings": {
+            "text": "Ropa de calle",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_1",
+        "texto_2",
+        "texto_3"
+      ],
+      "settings": {
+        "speed": 30,
+        "direction": "left",
+        "size": "small",
+        "show_borders": true,
+        "color_scheme": "scheme-1"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "all",
+        "products_to_show": 9,
         "title": "Novedades",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 9,
         "columns_desktop": 3,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": true,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "link",
-        "enable_desktop_slider": true,
-        "swipe_on_mobile": true,
+        "color_scheme": "scheme-1",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -48,6 +86,7 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "1",
+        "swipe_on_mobile": true,
         "padding_top": 56,
         "padding_bottom": 56
       }
@@ -55,11 +94,12 @@
     "editorial": {
       "type": "venture-editorial",
       "settings": {
+        "image_side": "left",
         "eyebrow": "El estudio",
         "heading": "Prendas para el día a día",
         "text": "<p>Cuenta aquí qué es Venture Studios, cómo trabajáis y qué hace distintas vuestras prendas.</p>",
         "link_label": "Conocer la marca",
-        "image_side": "left",
+        "link": "",
         "color_scheme": "scheme-2",
         "padding_top": 0,
         "padding_bottom": 0
@@ -70,15 +110,21 @@
       "blocks": {
         "coleccion_1": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         },
         "coleccion_2": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         },
         "coleccion_3": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         }
       },
       "block_order": [
@@ -97,41 +143,6 @@
         "swipe_on_mobile": true,
         "padding_top": 72,
         "padding_bottom": 80
-      }
-    },
-    "franja": {
-      "type": "venture-marquee",
-      "blocks": {
-        "texto_1": {
-          "type": "item",
-          "settings": {
-            "text": "Venture Studios"
-          }
-        },
-        "texto_2": {
-          "type": "item",
-          "settings": {
-            "text": "Nueva colección"
-          }
-        },
-        "texto_3": {
-          "type": "item",
-          "settings": {
-            "text": "Ropa de calle"
-          }
-        }
-      },
-      "block_order": [
-        "texto_1",
-        "texto_2",
-        "texto_3"
-      ],
-      "settings": {
-        "speed": 30,
-        "direction": "left",
-        "size": "small",
-        "show_borders": true,
-        "color_scheme": "scheme-1"
       }
     }
   },
