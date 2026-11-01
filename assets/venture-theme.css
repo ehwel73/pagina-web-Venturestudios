@@ -11,6 +11,18 @@
  * La portada, las colecciones y la ficha de producto llegan en fases posteriores.
  */
 
+/* Tipografías de marca. Se cargan en layout/theme.liquid y sustituyen a las del selector
+   de fuentes del editor (que queda con un valor seguro de Dawn). */
+body {
+  --font-heading-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 600;
+  --font-body-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
+}
+
 :root {
   /* Vino de acento (RGB) para detalles puntuales; los fondos usan los esquemas de color. */
   --venture-accent: 107, 36, 51;
