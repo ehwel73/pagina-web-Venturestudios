@@ -11,34 +11,10 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
-          "settings": {
-            "text": "Bienvenido",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "announcement-bar-0"
-      ],
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-2",
-        "show_line_separator": false,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
     "header": {
       "type": "header",
       "settings": {
-        "logo_position": "middle-left",
+        "logo_position": "middle-center",
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
@@ -49,13 +25,41 @@
         "enable_country_selector": true,
         "enable_language_selector": true,
         "margin_bottom": 0,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "anuncio": {
+      "type": "venture-marquee",
+      "blocks": {
+        "texto_1": {
+          "type": "item",
+          "settings": {
+            "text": "National shipping only"
+          }
+        },
+        "texto_2": {
+          "type": "item",
+          "settings": {
+            "text": "Envíos solo a España"
+          }
+        }
+      },
+      "block_order": [
+        "texto_1",
+        "texto_2"
+      ],
+      "settings": {
+        "speed": 25,
+        "direction": "left",
+        "size": "bar",
+        "show_borders": false,
+        "color_scheme": "scheme-2"
       }
     }
   },
   "order": [
-    "announcement-bar",
+    "anuncio",
     "header"
   ]
 }

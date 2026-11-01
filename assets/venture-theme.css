@@ -264,14 +264,26 @@ button.shopify-payment-button__button--unbranded {
 
 .venture-logotipo {
   display: block;
-  height: 4.4rem;
+  height: 3.2rem;
   width: auto;
 }
 
 @media screen and (min-width: 990px) {
   .venture-logotipo {
-    height: 5.6rem;
+    height: 3.8rem;
   }
+}
+
+/* Cabecera fina: el relleno se ajusta en el editor; aquí solo se quita el aire extra del logo y del menú. */
+.header__heading,
+.header__heading-link {
+  padding: 0;
+  margin: 0;
+}
+
+.header__menu-item {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
 }
 
 /* ---------- Cabecera sobre esquemas oscuros (vino o principal) ---------- */
