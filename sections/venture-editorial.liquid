@@ -1,0 +1,153 @@
+{%- comment -%}
+  Venture Studios: bloque editorial.
+  Imagen y texto en dos columnas (apilados en móvil). Lado de la imagen y esquema configurables.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="venture-editorial color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width venture-editorial__grid venture-editorial__grid--image-{{ section.settings.image_side }}">
+    <div class="venture-editorial__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            class: 'venture-editorial__image',
+            widths: '375, 550, 750, 1100, 1600',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            loading: 'lazy'
+        }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'venture-editorial__image venture-editorial__placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="venture-editorial__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="venture-editorial__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="venture-editorial__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="venture-editorial__text rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.settings.link_label != blank -%}
+        <a
+          class="venture-editorial__link link"
+          {% if section.settings.link != blank %}
+            href="{{ section.settings.link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+        >
+          {{- section.settings.link_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "VS · Editorial",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Lado de la imagen en escritorio",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "right", "label": "Derecha" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "El estudio"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Prendas para el día a día"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Cuenta aquí qué es Venture Studios, cómo trabajáis y qué hace distintas vuestras prendas.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Texto del enlace",
+      "default": "Conocer la marca"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Editorial"
+    }
+  ]
+}
+{% endschema %}

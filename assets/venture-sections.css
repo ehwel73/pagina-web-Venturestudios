@@ -1,0 +1,209 @@
+/*
+ * Venture Studios: estilos de las secciones propias de la portada
+ * (VS · Portada y VS · Editorial). Móvil primero.
+ */
+
+/* ---------- VS · Portada ---------- */
+
+.venture-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  min-height: 56rem;
+}
+
+.venture-hero--medium {
+  min-height: 48rem;
+}
+
+.venture-hero--large {
+  min-height: 64rem;
+}
+
+.venture-hero--full {
+  min-height: calc(100svh - var(--venture-header-offset, 12rem));
+}
+
+.venture-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.venture-hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(22, 21, 19, 0.75) 0%, rgba(22, 21, 19, 0) 60%),
+    rgba(22, 21, 19, var(--venture-hero-overlay, 0.25));
+}
+
+.venture-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.venture-hero__image--mobile {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .venture-hero__image--desktop {
+    display: none;
+  }
+
+  .venture-hero__image--mobile {
+    display: block;
+  }
+}
+
+.venture-hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 6rem;
+  padding-bottom: 5.6rem;
+}
+
+.venture-hero__content--bottom-center,
+.venture-hero__content--center {
+  text-align: center;
+}
+
+.venture-hero__content--center {
+  align-self: center;
+}
+
+.venture-hero--has-image .venture-hero__content {
+  color: #f2eee7;
+}
+
+.venture-hero__eyebrow {
+  margin: 0 0 1.6rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.venture-hero__heading {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(4.4rem, 11vw, 11.2rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: inherit;
+}
+
+.venture-hero__content--bottom-center .venture-hero__heading,
+.venture-hero__content--center .venture-hero__heading {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.venture-hero__text {
+  max-width: 44rem;
+  margin-top: 2rem;
+  color: inherit;
+}
+
+.venture-hero__content--bottom-center .venture-hero__text,
+.venture-hero__content--center .venture-hero__text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.venture-hero__button {
+  margin-top: 3.2rem;
+}
+
+/* Botón claro sobre la imagen. */
+.venture-hero--has-image .venture-hero__button {
+  --color-button: 242, 238, 231;
+  --color-button-text: 242, 238, 231;
+  color: #f2eee7;
+}
+
+.venture-hero--has-image .venture-hero__button:hover {
+  background-color: #f2eee7;
+  color: #161513;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-hero__content {
+    padding-bottom: 8rem;
+  }
+}
+
+/* ---------- VS · Editorial ---------- */
+
+.venture-editorial__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.2rem;
+  align-items: center;
+}
+
+.venture-editorial__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.venture-editorial__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.venture-editorial__placeholder {
+  fill: rgba(var(--color-foreground), 0.35);
+}
+
+.venture-editorial__content {
+  padding-bottom: 1.6rem;
+}
+
+.venture-editorial__eyebrow {
+  margin: 0 0 1.6rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.venture-editorial__heading {
+  margin: 0 0 2.4rem;
+  font-size: clamp(3.4rem, 6vw, 5.6rem);
+  line-height: 1;
+}
+
+.venture-editorial__text {
+  max-width: 48rem;
+}
+
+.venture-editorial__link {
+  display: inline-block;
+  margin-top: 2.4rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 0.4rem;
+  border-bottom: 0.1rem solid currentColor;
+}
+
+@media screen and (min-width: 990px) {
+  .venture-editorial__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+  }
+
+  .venture-editorial__grid--image-right .venture-editorial__media {
+    order: 2;
+  }
+}

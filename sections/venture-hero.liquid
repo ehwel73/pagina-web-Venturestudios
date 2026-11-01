@@ -1,0 +1,187 @@
+{%- comment -%}
+  Venture Studios: portada principal.
+  Imagen a sangre (con versión móvil opcional), antetítulo, titular en Cormorant y botón.
+  Sin imagen, muestra un fondo de color del esquema elegido, así que nunca queda vacía.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+-%}
+
+<section
+  class="venture-hero color-{{ section.settings.color_scheme }} gradient venture-hero--{{ section.settings.height }}{% if has_image %} venture-hero--has-image{% endif %}"
+  style="--venture-hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
+  {%- if has_image -%}
+    <div class="venture-hero__media">
+      {%- liquid
+        assign desktop_class = 'venture-hero__image'
+        if section.settings.image_mobile != blank
+          assign desktop_class = 'venture-hero__image venture-hero__image--desktop'
+        endif
+      -%}
+      {{
+        section.settings.image
+        | image_url: width: 3000
+        | image_tag:
+          class: desktop_class,
+          widths: '750, 1100, 1500, 2000, 2500, 3000',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          style: section.settings.image_position
+      }}
+      {%- if section.settings.image_mobile != blank -%}
+        {{
+          section.settings.image_mobile
+          | image_url: width: 1500
+          | image_tag:
+            class: 'venture-hero__image venture-hero__image--mobile',
+            widths: '375, 550, 750, 1100, 1500',
+            sizes: '100vw',
+            loading: 'eager'
+        }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="venture-hero__content page-width venture-hero__content--{{ section.settings.content_position }}">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="venture-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="venture-hero__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="venture-hero__text rte">{{ section.settings.text }}</div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a
+        class="button button--secondary venture-hero__button"
+        {% if section.settings.button_link != blank %}
+          href="{{ section.settings.button_link }}"
+        {% else %}
+          role="link" aria-disabled="true"
+        {% endif %}
+      >
+        {{- section.settings.button_label | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VS · Portada",
+  "tag": "div",
+  "class": "section venture-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Imagen para móvil",
+      "info": "Opcional. Recomendado en vertical (4:5)."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Encuadre",
+      "options": [
+        { "value": "object-position: center top;", "label": "Arriba" },
+        { "value": "object-position: center center;", "label": "Centro" },
+        { "value": "object-position: center bottom;", "label": "Abajo" }
+      ],
+      "default": "object-position: center center;"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Oscurecer imagen",
+      "default": 25
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Altura",
+      "options": [
+        { "value": "medium", "label": "Media" },
+        { "value": "large", "label": "Grande" },
+        { "value": "full", "label": "Pantalla completa" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "header",
+      "content": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Nueva colección"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Venture Studios"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Ver colección"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Posición del texto",
+      "options": [
+        { "value": "bottom-left", "label": "Abajo a la izquierda" },
+        { "value": "bottom-center", "label": "Abajo centrado" },
+        { "value": "center", "label": "Centro" }
+      ],
+      "default": "bottom-left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Portada"
+    }
+  ]
+}
+{% endschema %}

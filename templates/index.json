@@ -9,50 +9,25 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+    "venture_hero": {
+      "type": "venture-hero",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
+        "eyebrow": "Nueva colección",
+        "heading": "Venture Studios",
+        "button_label": "Ver colección",
+        "button_link": "shopify://collections/all",
+        "height": "full",
+        "overlay_opacity": 25,
+        "content_position": "bottom-left",
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "image_position": "object-position: center center;"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
+        "title": "Novedades",
+        "heading_size": "h1",
         "description": "",
         "show_description": false,
         "description_style": "body",
@@ -62,23 +37,105 @@
         "color_scheme": "scheme-1",
         "full_width": false,
         "show_view_all": true,
-        "view_all_style": "solid",
+        "view_all_style": "link",
         "enable_desktop_slider": false,
         "swipe_on_mobile": false,
-        "image_ratio": "adapt",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "padding_top": 72,
+        "padding_bottom": 56
+      }
+    },
+    "declaracion": {
+      "type": "rich-text",
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "Venture Studios",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "small"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ropa de calle con mirada editorial",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "caption",
+        "heading"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "editorial": {
+      "type": "venture-editorial",
+      "settings": {
+        "eyebrow": "El estudio",
+        "heading": "Prendas para el día a día",
+        "text": "<p>Cuenta aquí qué es Venture Studios, cómo trabajáis y qué hace distintas vuestras prendas.</p>",
+        "link_label": "Conocer la marca",
+        "image_side": "left",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "colecciones": {
+      "type": "collection-list",
+      "blocks": {
+        "coleccion_1": {
+          "type": "featured_collection",
+          "settings": {}
+        },
+        "coleccion_2": {
+          "type": "featured_collection",
+          "settings": {}
+        },
+        "coleccion_3": {
+          "type": "featured_collection",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "coleccion_1",
+        "coleccion_2",
+        "coleccion_3"
+      ],
+      "settings": {
+        "title": "Colecciones",
+        "heading_size": "h1",
+        "image_ratio": "portrait",
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 72,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "venture_hero",
+    "featured_collection",
+    "declaracion",
+    "editorial",
+    "colecciones"
   ]
 }
