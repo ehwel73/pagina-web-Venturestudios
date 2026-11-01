@@ -32,7 +32,7 @@ body {
 /* ---------- Selección de texto ---------- */
 
 ::selection {
-  background: rgb(var(--venture-accent));
+  background: #1d1c1a;
   color: #f2eee7;
 }
 
@@ -136,10 +136,11 @@ button.shopify-payment-button__button--unbranded {
 
 /* ---------- Enlaces en textos enriquecidos ---------- */
 
-/* El vino de acento solo sobre fondos claros (esquemas 1 y 2): sobre oscuro no tiene contraste. */
+/* Sobre fondos claros, enlaces en el color del texto con subrayado fino (el vino queda solo en la cabecera). */
 .color-scheme-1 .rte a:not(.button),
 .color-scheme-2 .rte a:not(.button) {
-  color: rgb(var(--venture-accent));
+  color: rgb(var(--color-foreground));
+  text-underline-offset: 0.3rem;
 }
 
 .color-scheme-3 .rte a:not(.button),
@@ -198,11 +199,11 @@ button.shopify-payment-button__button--unbranded {
   padding-bottom: 1.4rem;
 }
 
-/* Subrayado fino en vino para el elemento activo y al pasar el ratón. */
+/* Subrayado fino para el elemento activo y al pasar el ratón (sobre cabecera clara, en el color del texto). */
 .header__menu-item:hover span,
 .header__active-menu-item {
   text-decoration: none;
-  box-shadow: inset 0 -1px 0 rgb(var(--venture-accent));
+  box-shadow: inset 0 -1px 0 rgb(var(--color-foreground));
 }
 
 .header__icon .svg-wrapper svg {
@@ -210,8 +211,8 @@ button.shopify-payment-button__button--unbranded {
 }
 
 .cart-count-bubble {
-  background-color: rgb(var(--venture-accent));
-  color: #f2eee7;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }
 
 /* ---------- Pie ---------- */
@@ -294,4 +295,17 @@ button.shopify-payment-button__button--unbranded {
 /* Línea fina entre la barra de anuncios y la cabecera cuando comparten color. */
 .utility-bar.color-scheme-4 {
   border-bottom: 0.1rem solid rgba(242, 238, 231, 0.16);
+}
+
+/* ---------- Pie claro ---------- */
+
+.footer.color-scheme-1 .list-menu__item--link:hover,
+.footer.color-scheme-2 .list-menu__item--link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.footer.color-scheme-1,
+.footer.color-scheme-2 {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
 }

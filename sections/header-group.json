@@ -28,7 +28,7 @@
       "settings": {
         "auto_rotate": false,
         "change_slides_speed": 5,
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-2",
         "show_line_separator": false,
         "show_social": false,
         "enable_country_selector": false,
@@ -45,7 +45,7 @@
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,
         "color_scheme": "scheme-4",
-        "menu_color_scheme": "scheme-4",
+        "menu_color_scheme": "scheme-1",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "margin_bottom": 0,

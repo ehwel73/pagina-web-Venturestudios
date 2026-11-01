@@ -14,7 +14,7 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Recibe nuestras novedades",
         "enable_follow_on_shop": true,
