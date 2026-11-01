@@ -205,7 +205,8 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- comment -%} Venture Studios: logotipo vectorial si no hay logo subido en el editor {%- endcomment -%}
+          {%- render 'venture-logotipo' -%}
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -248,7 +249,8 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          {%- comment -%} Venture Studios: logotipo vectorial si no hay logo subido en el editor {%- endcomment -%}
+          {%- render 'venture-logotipo' -%}
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}

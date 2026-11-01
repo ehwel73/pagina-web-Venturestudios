@@ -246,3 +246,40 @@ button.shopify-payment-button__button--unbranded {
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
+
+/* ---------- Logotipo vectorial en la cabecera ---------- */
+
+.venture-logotipo {
+  display: block;
+  height: 4.4rem;
+  width: auto;
+}
+
+@media screen and (min-width: 990px) {
+  .venture-logotipo {
+    height: 5.6rem;
+  }
+}
+
+/* ---------- Cabecera sobre esquemas oscuros (vino o principal) ---------- */
+
+.header-wrapper.color-scheme-3 .header__menu-item:hover span,
+.header-wrapper.color-scheme-3 .header__active-menu-item,
+.header-wrapper.color-scheme-4 .header__menu-item:hover span,
+.header-wrapper.color-scheme-4 .header__active-menu-item,
+.header-wrapper.color-scheme-5 .header__menu-item:hover span,
+.header-wrapper.color-scheme-5 .header__active-menu-item {
+  box-shadow: inset 0 -1px 0 rgb(var(--venture-accent-text-on-dark));
+}
+
+.header-wrapper.color-scheme-3 .cart-count-bubble,
+.header-wrapper.color-scheme-4 .cart-count-bubble,
+.header-wrapper.color-scheme-5 .cart-count-bubble {
+  background-color: #f2eee7;
+  color: #4a1a25;
+}
+
+/* Línea fina entre la barra de anuncios y la cabecera cuando comparten color. */
+.utility-bar.color-scheme-4 {
+  border-bottom: 0.1rem solid rgba(242, 238, 231, 0.16);
+}
