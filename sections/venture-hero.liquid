@@ -15,7 +15,7 @@
 
 <section
   class="venture-hero color-{{ section.settings.color_scheme }} gradient venture-hero--{{ section.settings.height }}{% if has_image %} venture-hero--has-image{% endif %}"
-  style="--venture-hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+  style="--venture-hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --venture-hero-text: {{ section.settings.text_color }};"
 >
   {%- if has_image -%}
     <div class="venture-hero__media">
@@ -139,6 +139,13 @@
       "unit": "%",
       "label": "Oscurecer imagen",
       "default": 25
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto sobre la foto",
+      "info": "Elige un tono que combine con la foto y se lea bien.",
+      "default": "#F2EEE7"
     },
     {
       "type": "select",

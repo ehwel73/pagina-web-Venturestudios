@@ -81,7 +81,7 @@
 }
 
 .venture-hero--has-image .venture-hero__content {
-  color: #f2eee7;
+  color: var(--venture-hero-text, #f2eee7);
 }
 
 .venture-hero__eyebrow {
@@ -125,13 +125,13 @@
 
 /* Botón claro sobre la imagen. */
 .venture-hero--has-image .venture-hero__button {
-  --color-button: 242, 238, 231;
-  --color-button-text: 242, 238, 231;
-  color: #f2eee7;
+  color: var(--venture-hero-text, #f2eee7);
+  box-shadow: inset 0 0 0 0.1rem currentColor;
+  background: transparent;
 }
 
 .venture-hero--has-image .venture-hero__button:hover {
-  background-color: #f2eee7;
+  background-color: var(--venture-hero-text, #f2eee7);
   color: #161513;
 }
 

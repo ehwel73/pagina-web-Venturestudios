@@ -14,15 +14,16 @@
       "settings": {
         "use_test_image": true,
         "image_position": "object-position: center center;",
-        "overlay_opacity": 15,
+        "overlay_opacity": 30,
         "height": "full",
         "eyebrow": "Nueva colección",
         "heading": "Invierno",
         "text": "",
-        "button_label": "Ver colección",
+        "button_label": "",
         "button_link": "shopify://collections/all",
         "content_position": "center",
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-2",
+        "text_color": "#EEF4F5"
       }
     },
     "franja": {
