@@ -43,7 +43,7 @@
         "texto_1"
       ],
       "settings": {
-        "speed": 25,
+        "speed": 40,
         "direction": "left",
         "size": "bar",
         "show_borders": false,
