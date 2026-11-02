@@ -60,7 +60,7 @@
         "newsletter_text": "Recibe las novedades de Venture Studios en tu correo.",
         "button_label": "Suscríbete y obtén un 15 % de descuento",
         "legal_text": "Al suscribirte aceptas recibir comunicaciones comerciales de Venture Studios por correo. Consulta nuestra",
-        "show_watermark": true,
+        "show_watermark": false,
         "show_symbol": false,
         "color_scheme": "scheme-6"
       }
