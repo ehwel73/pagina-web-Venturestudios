@@ -20,9 +20,9 @@
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "none",
         "show_line_separator": false,
-        "color_scheme": "scheme-5",
-        "menu_color_scheme": "scheme-1",
-        "enable_country_selector": true,
+        "color_scheme": "scheme-6",
+        "menu_color_scheme": "scheme-6",
+        "enable_country_selector": false,
         "enable_language_selector": true,
         "margin_bottom": 0,
         "padding_top": 4,
@@ -35,19 +35,12 @@
         "texto_1": {
           "type": "item",
           "settings": {
-            "text": "National shipping only"
-          }
-        },
-        "texto_2": {
-          "type": "item",
-          "settings": {
             "text": "Envíos solo a España"
           }
         }
       },
       "block_order": [
-        "texto_1",
-        "texto_2"
+        "texto_1"
       ],
       "settings": {
         "speed": 25,

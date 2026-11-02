@@ -64,34 +64,6 @@
         "color_scheme": "scheme-1"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "all",
-        "products_to_show": 9,
-        "title": "Novedades",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 3,
-        "enable_desktop_slider": true,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "link",
-        "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 56,
-        "padding_bottom": 56
-      }
-    },
     "editorial": {
       "type": "venture-editorial",
       "settings": {
@@ -145,12 +117,42 @@
         "padding_top": 72,
         "padding_bottom": 80
       }
+    },
+    "novedades": {
+      "type": "venture-novedades",
+      "blocks": {
+        "hombre": {
+          "type": "pestana",
+          "settings": {
+            "title": "Hombre"
+          }
+        },
+        "mujer": {
+          "type": "pestana",
+          "settings": {
+            "title": "Mujer"
+          }
+        }
+      },
+      "block_order": [
+        "hombre",
+        "mujer"
+      ],
+      "settings": {
+        "heading": "Novedades",
+        "products_to_show": 8,
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
     }
   },
   "order": [
     "venture_hero",
     "franja",
-    "featured_collection",
+    "novedades",
     "editorial",
     "colecciones"
   ]

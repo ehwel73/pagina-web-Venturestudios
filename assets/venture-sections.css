@@ -339,3 +339,97 @@
     padding-bottom: 14rem;
   }
 }
+
+/* ---------- VS · Novedades (pestañas Hombre / Mujer) ---------- */
+
+.venture-novedades__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+}
+
+.venture-novedades__heading {
+  margin: 0;
+}
+
+.venture-novedades__tabs {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.venture-novedades__tab {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2.4rem;
+  border-radius: 4rem;
+  border: 0.1rem solid rgb(var(--color-foreground));
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.venture-novedades__tab[aria-selected='true'] {
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.venture-novedades__tab:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.3rem;
+}
+
+/* Móvil: carrusel deslizable. */
+.venture-novedades__list {
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0 0 0.4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.venture-novedades__list::-webkit-scrollbar {
+  display: none;
+}
+
+.venture-novedades__item {
+  flex: 0 0 78%;
+  scroll-snap-align: start;
+}
+
+/* Escritorio: cuadrícula de 4 columnas. */
+@media screen and (min-width: 750px) {
+  .venture-novedades__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem 1.6rem;
+    overflow: visible;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .venture-novedades__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.venture-novedades__all {
+  display: inline-block;
+  margin-top: 2.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+  padding-bottom: 0.4rem;
+  border-bottom: 0.1rem solid currentColor;
+}

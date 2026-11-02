@@ -66,6 +66,17 @@
           "secondary_button_label": "#F2EEE7",
           "shadow": "#161513"
         }
+      },
+      "scheme-6": {
+        "settings": {
+          "background": "#FFFFFF",
+          "background_gradient": "",
+          "text": "#161513",
+          "button": "#FFFFFF",
+          "button_label": "#161513",
+          "secondary_button_label": "#161513",
+          "shadow": "#161513"
+        }
       }
     },
     "type_header_font": "assistant_n4",
@@ -256,6 +267,17 @@
             "button": "#F2EEE7",
             "button_label": "#6B2433",
             "secondary_button_label": "#F2EEE7",
+            "shadow": "#161513"
+          }
+        },
+        "scheme-6": {
+          "settings": {
+            "background": "#FFFFFF",
+            "background_gradient": "",
+            "text": "#161513",
+            "button": "#FFFFFF",
+            "button_label": "#161513",
+            "secondary_button_label": "#161513",
             "shadow": "#161513"
           }
         }
