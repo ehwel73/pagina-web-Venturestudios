@@ -1023,3 +1023,8 @@
 .venture-marquee__copia {
   display: contents;
 }
+
+/* Con punto: la separación del editor se reparte a ambos lados del punto. */
+.venture-marquee .venture-marquee__separator {
+  margin: 0 calc(var(--venture-marquee-gap, 64px) / 2);
+}
