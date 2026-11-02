@@ -1,0 +1,144 @@
+{%- comment -%}
+  Venture Studios: accesos grandes "Ver todo" (por ejemplo Hombre y Mujer).
+  Cada bloque es una foto con su nombre y enlace a una colección. Dos columnas en escritorio, apilados en móvil.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="venture-ver-todo color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}venture-ver-todo__wrap--full{% else %}page-width{% endif %}">
+    <div class="venture-ver-todo__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign tile_collection = block.settings.collection
+          assign tile_image = block.settings.image
+          if tile_image == blank and tile_collection != blank
+            assign tile_image = tile_collection.featured_image
+          endif
+          assign tile_url = routes.all_products_collection_url
+          if tile_collection != blank
+            assign tile_url = tile_collection.url
+          endif
+        -%}
+        <a class="venture-ver-todo__tile" href="{{ tile_url }}" {{ block.shopify_attributes }}>
+          <span class="venture-ver-todo__media">
+            {%- if tile_image != blank -%}
+              {{
+                tile_image
+                | image_url: width: 1600
+                | image_tag:
+                  widths: '375, 550, 750, 1100, 1600',
+                  sizes: '(min-width: 750px) 50vw, 100vw',
+                  loading: 'lazy',
+                  alt: block.settings.title
+              }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'venture-ver-todo__placeholder' }}
+            {%- endif -%}
+          </span>
+          <span class="venture-ver-todo__texto">
+            <span class="venture-ver-todo__titulo">{{ block.settings.title | escape }}</span>
+            <span class="venture-ver-todo__cta">{{ block.settings.link_label | escape }}</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "VS · Ver todo",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Ancho completo",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "acceso",
+      "name": "Acceso",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nombre",
+          "default": "Hombre"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Texto del enlace",
+          "default": "Ver todo"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colección"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto",
+          "info": "Si la dejas vacía, se usa la foto de la colección. Recomendado en vertical (4:5)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Ver todo",
+      "blocks": [
+        { "type": "acceso", "settings": { "title": "Hombre" } },
+        { "type": "acceso", "settings": { "title": "Mujer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

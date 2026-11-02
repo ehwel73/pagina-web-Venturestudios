@@ -147,12 +147,73 @@
         "padding_top": 56,
         "padding_bottom": 56
       }
+    },
+    "ver_todo": {
+      "type": "venture-ver-todo",
+      "blocks": {
+        "hombre": {
+          "type": "acceso",
+          "settings": {
+            "title": "Hombre",
+            "link_label": "Ver todo"
+          }
+        },
+        "mujer": {
+          "type": "acceso",
+          "settings": {
+            "title": "Mujer",
+            "link_label": "Ver todo"
+          }
+        }
+      },
+      "block_order": [
+        "hombre",
+        "mujer"
+      ],
+      "settings": {
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 56
+      }
+    },
+    "look": {
+      "type": "venture-look",
+      "blocks": {
+        "prenda_1": {
+          "type": "prenda",
+          "settings": {}
+        },
+        "prenda_2": {
+          "type": "prenda",
+          "settings": {}
+        },
+        "prenda_3": {
+          "type": "prenda",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "prenda_1",
+        "prenda_2",
+        "prenda_3"
+      ],
+      "settings": {
+        "image_side": "left",
+        "eyebrow": "Outfit completo",
+        "heading": "Compra el look",
+        "color_scheme": "scheme-2",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
     "venture_hero",
     "franja",
     "novedades",
+    "ver_todo",
+    "look",
     "editorial",
     "colecciones"
   ]

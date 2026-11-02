@@ -1,0 +1,324 @@
+{%- comment -%}
+  Venture Studios: "Compra el look". Foto del outfit completo y la lista de prendas que lo forman.
+  El cliente elige la talla de cada prenda y añade el look entero al carrito de una vez.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="Look-{{ section.id }}"
+  class="venture-look color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+  data-cart-url="{{ routes.cart_url }}"
+  data-cart-add-url="{{ routes.cart_add_url }}"
+  data-msg-size="{{ 'venture.look.error_size' | t | escape }}"
+  data-msg-error="{{ 'venture.look.error' | t | escape }}"
+>
+  <div class="page-width venture-look__grid venture-look__grid--image-{{ section.settings.image_side }}">
+    <div class="venture-look__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1800
+          | image_tag:
+            widths: '375, 550, 750, 1100, 1500, 1800',
+            sizes: '(min-width: 990px) 55vw, 100vw',
+            loading: 'lazy',
+            class: 'venture-look__image'
+        }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'venture-look__image venture-look__placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="venture-look__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="venture-look__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="venture-look__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      <ul class="venture-look__lista list-unstyled" role="list">
+        {%- assign has_products = false -%}
+        {%- for block in section.blocks -%}
+          {%- assign look_product = block.settings.product -%}
+          {%- if look_product == blank -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- assign has_products = true -%}
+          {%- assign default_variant = look_product.selected_or_first_available_variant -%}
+          <li class="venture-look__item" {{ block.shopify_attributes }}>
+            <a class="venture-look__thumb" href="{{ look_product.url }}">
+              {%- if look_product.featured_media -%}
+                {{
+                  look_product.featured_media
+                  | image_url: width: 240
+                  | image_tag: loading: 'lazy', alt: look_product.title, widths: '120, 240'
+                }}
+              {%- endif -%}
+            </a>
+            <div class="venture-look__info">
+              <a class="venture-look__nombre" href="{{ look_product.url }}">{{ look_product.title | escape }}</a>
+              <span class="venture-look__precio" data-look-precio>{{ default_variant.price | money }}</span>
+
+              {%- if look_product.has_only_default_variant -%}
+                <input type="hidden" data-look-variant value="{{ default_variant.id }}" data-price="{{ default_variant.price }}">
+                {%- unless default_variant.available -%}
+                  <span class="venture-look__agotado">{{ 'products.product.sold_out' | t }}</span>
+                {%- endunless -%}
+              {%- else -%}
+                <label class="visually-hidden" for="LookTalla-{{ section.id }}-{{ forloop.index }}">
+                  {{- 'venture.look.size' | t }}: {{ look_product.title | escape -}}
+                </label>
+                <select
+                  id="LookTalla-{{ section.id }}-{{ forloop.index }}"
+                  class="venture-look__talla"
+                  data-look-variant
+                >
+                  <option value="" data-price="{{ default_variant.price }}">{{ 'venture.look.choose_size' | t }}</option>
+                  {%- for variant in look_product.variants -%}
+                    <option
+                      value="{{ variant.id }}"
+                      data-price="{{ variant.price }}"
+                      data-price-text="{{ variant.price | money }}"
+                      {% unless variant.available %}
+                        disabled
+                      {% endunless %}
+                    >
+                      {{- variant.title | escape -}}
+                      {%- unless variant.available %} · {{ 'products.product.sold_out' | t }}{% endunless -%}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+
+        {%- unless has_products -%}
+          <li class="venture-look__vacio">{{ 'venture.look.empty' | t }}</li>
+        {%- endunless -%}
+      </ul>
+
+      {%- if has_products -%}
+        <div class="venture-look__total">
+          <span>{{ 'venture.look.total' | t }}</span>
+          <span data-look-total></span>
+        </div>
+        <button type="button" class="button button--full-width venture-look__boton" data-look-add>
+          {{- 'venture.look.add_all' | t -}}
+        </button>
+        <p class="venture-look__mensaje" data-look-mensaje role="status" aria-live="polite"></p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('Look-{{ section.id }}');
+    if (!root) return;
+    var button = root.querySelector('[data-look-add]');
+    if (!button) return;
+    var totalEl = root.querySelector('[data-look-total]');
+    var message = root.querySelector('[data-look-mensaje]');
+    var currency = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR';
+    var money = new Intl.NumberFormat(document.documentElement.lang || 'es', { style: 'currency', currency: currency });
+
+    function fields() {
+      return Array.prototype.slice.call(root.querySelectorAll('[data-look-variant]'));
+    }
+
+    function priceOf(field) {
+      if (field.tagName === 'SELECT') {
+        return parseInt(field.options[field.selectedIndex].getAttribute('data-price'), 10) || 0;
+      }
+      return parseInt(field.getAttribute('data-price'), 10) || 0;
+    }
+
+    function update() {
+      var total = 0;
+      fields().forEach(function (field) {
+        total += priceOf(field);
+        if (field.tagName === 'SELECT') {
+          var text = field.options[field.selectedIndex].getAttribute('data-price-text');
+          var priceEl = field.closest('.venture-look__item').querySelector('[data-look-precio]');
+          if (text && priceEl) priceEl.textContent = text;
+          field.classList.remove('venture-look__talla--error');
+        }
+      });
+      totalEl.textContent = money.format(total / 100);
+    }
+
+    function sectionHTML(html, selector) {
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var el = doc.querySelector(selector) || doc.querySelector('.shopify-section');
+      return el ? el.innerHTML : '';
+    }
+
+    root.addEventListener('change', update);
+
+    button.addEventListener('click', function () {
+      var missing = fields().filter(function (f) {
+        return !f.value;
+      });
+      if (missing.length) {
+        missing.forEach(function (f) {
+          f.classList.add('venture-look__talla--error');
+        });
+        missing[0].focus();
+        message.textContent = root.getAttribute('data-msg-size');
+        return;
+      }
+
+      var drawer = document.querySelector('cart-drawer');
+      var sections = drawer ? ['cart-drawer', 'cart-icon-bubble'] : ['cart-icon-bubble'];
+      button.setAttribute('aria-disabled', 'true');
+      button.classList.add('loading');
+      message.textContent = '';
+
+      fetch(root.getAttribute('data-cart-add-url') + '.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          items: fields().map(function (f) {
+            return { id: parseInt(f.value, 10), quantity: 1 };
+          }),
+          sections: sections,
+          sections_url: window.location.pathname
+        })
+      })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (data) {
+          if (data.status) {
+            message.textContent = data.description || root.getAttribute('data-msg-error');
+            return;
+          }
+          if (drawer && typeof drawer.renderContents === 'function') {
+            drawer.renderContents(data);
+          } else {
+            var bubble = document.getElementById('cart-icon-bubble');
+            if (bubble && data.sections && data.sections['cart-icon-bubble']) {
+              bubble.innerHTML = sectionHTML(data.sections['cart-icon-bubble'], '.shopify-section');
+            }
+            message.innerHTML =
+              '{{ 'venture.look.added' | t | escape }} <a href="' +
+              root.getAttribute('data-cart-url') +
+              '">{{ 'venture.look.view_cart' | t | escape }}</a>';
+          }
+        })
+        .catch(function () {
+          message.textContent = root.getAttribute('data-msg-error');
+        })
+        .finally(function () {
+          button.removeAttribute('aria-disabled');
+          button.classList.remove('loading');
+        });
+    });
+
+    update();
+  })();
+</script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "VS · Compra el look",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Foto del outfit"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Lado de la foto en escritorio",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "right", "label": "Derecha" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Outfit completo"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Compra el look"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "prenda",
+      "name": "Prenda",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Producto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Compra el look",
+      "blocks": [
+        { "type": "prenda" },
+        { "type": "prenda" },
+        { "type": "prenda" }
+      ]
+    }
+  ]
+}
+{% endschema %}

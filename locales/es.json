@@ -566,6 +566,17 @@
       "empty": "Todavía no has guardado ninguna prenda.",
       "browse": "Ver la tienda",
       "noscript": "Activa JavaScript para ver tus favoritos."
+    },
+    "look": {
+      "size": "Talla",
+      "choose_size": "Elige talla",
+      "add_all": "Añadir el look completo",
+      "total": "Total del look",
+      "added": "Look añadido al carrito.",
+      "view_cart": "Ver carrito",
+      "error_size": "Elige la talla de todas las prendas.",
+      "error": "No se ha podido añadir el look. Inténtalo de nuevo.",
+      "empty": "Elige las prendas del look en el editor del tema."
     }
   }
 }

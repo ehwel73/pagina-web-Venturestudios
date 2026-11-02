@@ -498,3 +498,276 @@
   opacity: 0.55;
   margin-right: 0.4rem;
 }
+
+/* ---------- VS · Ver todo (Hombre / Mujer) ---------- */
+
+.venture-ver-todo__wrap--full {
+  padding: 0 0.8rem;
+}
+
+.venture-ver-todo__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-ver-todo__grid {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    grid-auto-flow: column;
+    gap: 1.6rem;
+  }
+}
+
+.venture-ver-todo__tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.venture-ver-todo__media {
+  display: block;
+  aspect-ratio: 4 / 5;
+  background: rgba(var(--color-foreground), 0.08);
+}
+
+.venture-ver-todo__media img,
+.venture-ver-todo__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.venture-ver-todo__placeholder {
+  fill: rgba(var(--color-foreground), 0.3);
+}
+
+.venture-ver-todo__tile:hover .venture-ver-todo__media img {
+  transform: scale(1.03);
+}
+
+.venture-ver-todo__tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(22, 21, 19, 0.55) 0%, rgba(22, 21, 19, 0) 45%);
+  pointer-events: none;
+}
+
+.venture-ver-todo__texto {
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.venture-ver-todo__titulo {
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.venture-ver-todo__cta {
+  flex-shrink: 0;
+  padding: 1rem 2rem;
+  border-radius: 4rem;
+  border: 0.1rem solid currentColor;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.venture-ver-todo__tile:hover .venture-ver-todo__cta {
+  background: #ffffff;
+  color: #161513;
+}
+
+/* ---------- VS · Compra el look ---------- */
+
+.venture-look__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.2rem;
+  align-items: start;
+}
+
+@media screen and (min-width: 990px) {
+  .venture-look__grid {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6.4rem;
+  }
+
+  .venture-look__grid--image-right .venture-look__media {
+    order: 2;
+  }
+
+  .venture-look__content {
+    position: sticky;
+    top: 14rem;
+  }
+}
+
+.venture-look__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.venture-look__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.venture-look__placeholder {
+  fill: rgba(var(--color-foreground), 0.3);
+}
+
+.venture-look__eyebrow {
+  margin: 0 0 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.venture-look__heading {
+  margin: 0 0 2.8rem;
+  font-size: clamp(3.4rem, 5vw, 5.2rem);
+  line-height: 1;
+}
+
+.venture-look__lista {
+  margin: 0;
+  padding: 0;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.15);
+}
+
+.venture-look__item {
+  display: grid;
+  grid-template-columns: 7.2rem 1fr;
+  gap: 1.6rem;
+  align-items: center;
+  padding: 1.6rem 0;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.15);
+}
+
+.venture-look__thumb {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 0.4rem;
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.venture-look__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.venture-look__info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem 1.2rem;
+  align-items: center;
+}
+
+.venture-look__nombre {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+}
+
+.venture-look__precio {
+  font-size: 1.3rem;
+  text-align: right;
+}
+
+.venture-look__talla {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 24rem;
+  min-height: 4rem;
+  padding: 0 1.6rem;
+  border-radius: 4rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.35);
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+}
+
+.venture-look__talla--error {
+  border-color: rgb(var(--color-foreground));
+  box-shadow: 0 0 0 0.1rem rgb(var(--color-foreground));
+}
+
+.venture-look__agotado {
+  grid-column: 1 / -1;
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.venture-look__vacio {
+  padding: 2rem 0;
+  opacity: 0.7;
+}
+
+.venture-look__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 2.4rem 0 1.6rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.venture-look__total [data-look-total] {
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+}
+
+/* Botón de compra relleno, como Añadir al carrito. */
+.venture-look__boton {
+  --color-button: var(--color-foreground);
+  --color-button-text: var(--color-background);
+  --alpha-button-background: 1;
+}
+
+.venture-look__mensaje {
+  min-height: 2rem;
+  margin: 1.2rem 0 0;
+  font-size: 1.3rem;
+}
+
+.venture-look__mensaje a {
+  color: rgb(var(--color-foreground));
+  text-underline-offset: 0.3rem;
+}

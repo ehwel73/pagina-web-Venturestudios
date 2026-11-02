@@ -554,6 +554,17 @@
       "empty": "You haven't saved anything yet.",
       "browse": "Browse the shop",
       "noscript": "Turn on JavaScript to see your wishlist."
+    },
+    "look": {
+      "size": "Size",
+      "choose_size": "Choose size",
+      "add_all": "Add the full look to cart",
+      "total": "Look total",
+      "added": "Look added to your cart.",
+      "view_cart": "View cart",
+      "error_size": "Choose a size for every item.",
+      "error": "Couldn't add the look. Please try again.",
+      "empty": "Choose the products of the look in the theme editor."
     }
   }
 }
