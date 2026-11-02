@@ -37,17 +37,10 @@
           "settings": {
             "text": "Envíos solo a España"
           }
-        },
-        "texto_2": {
-          "type": "item",
-          "settings": {
-            "text": "National shipping only"
-          }
         }
       },
       "block_order": [
-        "texto_1",
-        "texto_2"
+        "texto_1"
       ],
       "settings": {
         "speed": 25,
@@ -56,7 +49,7 @@
         "show_borders": false,
         "color_scheme": "scheme-2",
         "show_separator": true,
-        "gap": 120
+        "gap": 48
       }
     }
   },
