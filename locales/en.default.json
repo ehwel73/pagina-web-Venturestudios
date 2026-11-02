@@ -568,6 +568,9 @@
       "slide": "look",
       "previous": "Previous look",
       "next": "Next look"
+    },
+    "about": {
+      "follow": "Follow us"
     }
   }
 }

@@ -1,0 +1,227 @@
+{%- comment -%}
+  Venture Studios: "Sobre nosotros" y cosas de la marca.
+  Foto, texto de la marca con enlace, fila de datos de la marca (bloques) y enlaces a redes sociales.
+  Las redes salen de Ajustes del tema > Redes sociales.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="venture-about color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="venture-about__grid">
+      <div class="venture-about__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1600
+            | image_tag:
+              widths: '375, 550, 750, 1100, 1600',
+              sizes: '(min-width: 990px) 45vw, 100vw',
+              loading: 'lazy',
+              class: 'venture-about__image'
+          }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'venture-about__image venture-about__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="venture-about__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="venture-about__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="venture-about__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="venture-about__text rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a
+            class="button venture-about__button"
+            {% if section.settings.link != blank %}
+              href="{{ section.settings.link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+          >
+            {{- section.settings.link_label | escape -}}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.show_social -%}
+          {%- liquid
+            assign socials = ''
+            if settings.social_instagram_link != blank
+              assign socials = socials | append: 'Instagram|' | append: settings.social_instagram_link | append: ';'
+            endif
+            if settings.social_tiktok_link != blank
+              assign socials = socials | append: 'TikTok|' | append: settings.social_tiktok_link | append: ';'
+            endif
+            if settings.social_youtube_link != blank
+              assign socials = socials | append: 'YouTube|' | append: settings.social_youtube_link | append: ';'
+            endif
+            if settings.social_pinterest_link != blank
+              assign socials = socials | append: 'Pinterest|' | append: settings.social_pinterest_link | append: ';'
+            endif
+            if settings.social_twitter_link != blank
+              assign socials = socials | append: 'X|' | append: settings.social_twitter_link | append: ';'
+            endif
+            if settings.social_facebook_link != blank
+              assign socials = socials | append: 'Facebook|' | append: settings.social_facebook_link | append: ';'
+            endif
+            assign social_items = socials | split: ';'
+          -%}
+          {%- if social_items.size > 0 -%}
+            <div class="venture-about__social">
+              <span class="venture-about__social-label">{{ 'venture.about.follow' | t }}</span>
+              <ul class="venture-about__social-list list-unstyled" role="list">
+                {%- for item in social_items -%}
+                  {%- assign parts = item | split: '|' -%}
+                  <li>
+                    <a href="{{ parts[1] }}" target="_blank" rel="noopener">{{ parts[0] }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="venture-about__datos list-unstyled" role="list">
+        {%- for block in section.blocks -%}
+          <li class="venture-about__dato" {{ block.shopify_attributes }}>
+            <span class="venture-about__dato-numero" aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
+            <h3 class="venture-about__dato-titulo">{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="venture-about__dato-texto">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "VS · Sobre nosotros",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Foto",
+      "info": "Recomendado en vertical (4:5): equipo, estudio, proceso o una campaña."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Sobre nosotros"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Venture Studios"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Cuenta aquí quiénes sois, cómo nació la marca y qué hace distintas vuestras prendas.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Texto del botón",
+      "default": "Nuestra historia"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Mostrar redes sociales",
+      "info": "Se configuran en Ajustes del tema > Redes sociales.",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "dato",
+      "name": "Dato de la marca",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Dato de la marca"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Sobre nosotros",
+      "blocks": [
+        { "type": "dato" },
+        { "type": "dato" },
+        { "type": "dato" }
+      ]
+    }
+  ]
+}
+{% endschema %}

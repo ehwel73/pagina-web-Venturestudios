@@ -580,6 +580,9 @@
       "slide": "look",
       "previous": "Look anterior",
       "next": "Look siguiente"
+    },
+    "about": {
+      "follow": "Síguenos"
     }
   }
 }
