@@ -147,6 +147,7 @@
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
+            {%- render 'venture-fav-enlace', class: 'venture-fav-enlace--drawer' -%}
             {%- render 'venture-idioma', context: 'drawer' -%}
             {%- if show_country_selector or show_language_selector -%}
               <div class="menu-drawer__localization header-localization">

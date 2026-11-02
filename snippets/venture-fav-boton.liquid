@@ -1,0 +1,24 @@
+{%- comment -%}
+  Venture Studios: botón de "me gusta" (favoritos).
+  product: el producto. contexto: 'card' (corazón sobre la foto) o 'producto' (botón con texto en la ficha).
+  La lista se guarda en el navegador del cliente (assets/venture-favoritos.js).
+{%- endcomment -%}
+{%- if product and product != empty -%}
+  <button
+    type="button"
+    class="venture-fav venture-fav--{{ contexto | default: 'card' }}"
+    data-venture-fav="{{ product.handle }}"
+    data-label-off="{{ 'venture.favoritos.add' | t }}: {{ product.title | escape }}"
+    data-label-on="{{ 'venture.favoritos.remove' | t }}: {{ product.title | escape }}"
+    aria-label="{{ 'venture.favoritos.add' | t }}: {{ product.title | escape }}"
+    aria-pressed="false"
+  >
+    <svg class="venture-fav__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 20.3 4.7 13.2a4.9 4.9 0 0 1 0-7 4.9 4.9 0 0 1 6.9 0l.4.4.4-.4a4.9 4.9 0 0 1 6.9 0 4.9 4.9 0 0 1 0 7Z"/>
+    </svg>
+    {%- if contexto == 'producto' -%}
+      <span class="venture-fav__texto venture-fav__texto--off">{{ 'venture.favoritos.add' | t }}</span>
+      <span class="venture-fav__texto venture-fav__texto--on">{{ 'venture.favoritos.saved' | t }}</span>
+    {%- endif -%}
+  </button>
+{%- endif -%}

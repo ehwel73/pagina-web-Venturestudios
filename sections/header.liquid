@@ -284,6 +284,7 @@
       </div>
       {%- render 'venture-idioma', context: 'header' -%}
       {% render 'header-search', input_id: 'Search-In-Modal' %}
+      {%- render 'venture-fav-enlace', class: 'header__icon small-hide medium-hide' -%}
 
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account

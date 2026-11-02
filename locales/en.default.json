@@ -545,6 +545,15 @@
       "cart": "Cart",
       "menu": "Menu",
       "language": "Language"
+    },
+    "favoritos": {
+      "title": "Wishlist",
+      "add": "Add to wishlist",
+      "remove": "Remove from wishlist",
+      "saved": "Saved to wishlist",
+      "empty": "You haven't saved anything yet.",
+      "browse": "Browse the shop",
+      "noscript": "Turn on JavaScript to see your wishlist."
     }
   }
 }

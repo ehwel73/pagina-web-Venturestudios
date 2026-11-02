@@ -105,6 +105,7 @@
                         {{ product.title | escape }}
                       </h2>
                     </a>
+                    {%- render 'venture-fav-boton', product: product, contexto: 'producto' -%}
                   </div>
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>

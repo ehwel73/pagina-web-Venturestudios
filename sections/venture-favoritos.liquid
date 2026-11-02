@@ -1,0 +1,165 @@
+{%- comment -%}
+  Venture Studios: página de favoritos.
+  Lee la lista guardada en el navegador y pide cada producto a Shopify (/products/<handle>.js).
+  Se usa en la plantilla templates/page.wishlist.json.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="venture-favoritos color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <h1 class="venture-favoritos__heading">{{ section.settings.heading | escape }}</h1>
+
+    <p class="venture-favoritos__vacio" data-venture-fav-vacio hidden>
+      {{ 'venture.favoritos.empty' | t }}
+      <a href="{{ routes.all_products_collection_url }}">{{ 'venture.favoritos.browse' | t }}</a>
+    </p>
+
+    <ul
+      class="venture-favoritos__lista list-unstyled"
+      role="list"
+      data-venture-fav-lista
+      data-remove-label="{{ 'venture.favoritos.remove' | t }}"
+    ></ul>
+
+    <noscript>
+      <p class="venture-favoritos__vacio">{{ 'venture.favoritos.noscript' | t }}</p>
+    </noscript>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling;
+    var listEl = root.querySelector('[data-venture-fav-lista]');
+    var emptyEl = root.querySelector('[data-venture-fav-vacio]');
+    var removeLabel = listEl.getAttribute('data-remove-label');
+    var base = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+    var currency = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR';
+    var lang = document.documentElement.lang || 'es';
+    var money = new Intl.NumberFormat(lang, { style: 'currency', currency: currency });
+    var cache = {};
+
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function card(p) {
+      var img = p.featured_image
+        ? '<img src="' + p.featured_image + (p.featured_image.indexOf('?') === -1 ? '?' : '&') + 'width=720" alt="' +
+          escapeHtml(p.title) + '" loading="lazy" width="720" height="900">'
+        : '';
+      var price = money.format(p.price / 100);
+      var compare = p.compare_at_price > p.price ? '<s>' + money.format(p.compare_at_price / 100) + '</s> ' : '';
+      return (
+        '<li class="venture-favoritos__item">' +
+        '<a class="venture-favoritos__media" href="' + p.url + '">' + img + '</a>' +
+        '<button type="button" class="venture-fav venture-fav--card" data-venture-fav="' + p.handle +
+        '" aria-pressed="true" aria-label="' + escapeHtml(removeLabel + ': ' + p.title) + '">' +
+        '<svg class="venture-fav__icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.3 4.7 13.2a4.9 4.9 0 0 1 0-7 4.9 4.9 0 0 1 6.9 0l.4.4.4-.4a4.9 4.9 0 0 1 6.9 0 4.9 4.9 0 0 1 0 7Z"/></svg>' +
+        '</button>' +
+        '<a class="venture-favoritos__titulo" href="' + p.url + '">' + escapeHtml(p.title) + '</a>' +
+        '<p class="venture-favoritos__precio">' + compare + price + '</p>' +
+        '</li>'
+      );
+    }
+
+    function render() {
+      var handles = window.VentureFavoritos ? window.VentureFavoritos.read() : [];
+      emptyEl.hidden = handles.length > 0;
+      if (!handles.length) {
+        listEl.innerHTML = '';
+        return;
+      }
+      Promise.all(
+        handles.map(function (handle) {
+          if (cache[handle]) return Promise.resolve(cache[handle]);
+          return fetch(base + 'products/' + encodeURIComponent(handle) + '.js')
+            .then(function (r) {
+              if (r.status === 404) {
+                window.VentureFavoritos.remove(handle);
+                return null;
+              }
+              return r.ok ? r.json() : null;
+            })
+            .then(function (p) {
+              if (p) cache[handle] = p;
+              return p;
+            })
+            .catch(function () {
+              return null;
+            });
+        })
+      ).then(function (products) {
+        listEl.innerHTML = products.filter(Boolean).map(card).join('');
+      });
+    }
+
+    document.addEventListener('venture:favoritos', render);
+    window.addEventListener('storage', render);
+    render();
+  })();
+</script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "VS · Favoritos",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titular",
+      "default": "Favoritos"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Favoritos"
+    }
+  ]
+}
+{% endschema %}

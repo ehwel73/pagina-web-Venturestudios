@@ -557,6 +557,15 @@
       "cart": "Carrito",
       "menu": "Menú",
       "language": "Idioma"
+    },
+    "favoritos": {
+      "title": "Favoritos",
+      "add": "Añadir a favoritos",
+      "remove": "Quitar de favoritos",
+      "saved": "Guardado en favoritos",
+      "empty": "Todavía no has guardado ninguna prenda.",
+      "browse": "Ver la tienda",
+      "noscript": "Activa JavaScript para ver tus favoritos."
     }
   }
 }
