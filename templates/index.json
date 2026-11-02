@@ -64,20 +64,6 @@
         "color_scheme": "scheme-1"
       }
     },
-    "editorial": {
-      "type": "venture-editorial",
-      "settings": {
-        "image_side": "left",
-        "eyebrow": "El estudio",
-        "heading": "Prendas para el día a día",
-        "text": "<p>Cuenta aquí qué es Venture Studios, cómo trabajáis y qué hace distintas vuestras prendas.</p>",
-        "link_label": "Conocer la marca",
-        "link": "",
-        "color_scheme": "scheme-2",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "colecciones": {
       "type": "collection-list",
       "blocks": {
@@ -206,6 +192,29 @@
         "padding_top": 64,
         "padding_bottom": 64
       }
+    },
+    "best_sellers": {
+      "type": "venture-novedades",
+      "blocks": {
+        "best": {
+          "type": "pestana",
+          "settings": {
+            "title": "Best sellers"
+          }
+        }
+      },
+      "block_order": [
+        "best"
+      ],
+      "settings": {
+        "heading": "Best sellers",
+        "products_to_show": 8,
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 56,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
@@ -214,7 +223,7 @@
     "novedades",
     "ver_todo",
     "look",
-    "editorial",
-    "colecciones"
+    "colecciones",
+    "best_sellers"
   ]
 }
