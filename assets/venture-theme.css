@@ -573,17 +573,17 @@ button.venture-idioma__opcion:hover {
   outline-offset: 0.3rem;
 }
 
-/* Sobre la foto de la tarjeta: círculo blanco arriba a la derecha, por encima del enlace de la tarjeta. */
+/* Sobre la foto (tarjetas y ficha): círculo blanco abajo a la derecha, por encima del enlace de la tarjeta. */
 .venture-fav--card {
   position: absolute;
-  top: 1rem;
   right: 1rem;
+  bottom: 1rem;
   z-index: 2;
   justify-content: center;
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: #161513;
   box-shadow: 0 0.2rem 0.8rem rgba(22, 21, 19, 0.1);
 }
@@ -597,54 +597,26 @@ button.venture-idioma__opcion:hover {
   transform: scale(1.1);
 }
 
-/* En la ficha de producto: botón con texto bajo el título. */
-.venture-fav--producto {
-  margin-top: 1.2rem;
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+/* El bloque de la foto de la tarjeta no debe crear su propia capa, para que el corazón quede
+   por encima del enlace que cubre la tarjeta (Dawn le pone transform por un ajuste de degradados). */
+.card-wrapper .card__inner.gradient {
+  transform: none;
 }
 
-.venture-fav--producto .venture-fav__texto--on,
-.venture-fav--producto[aria-pressed='true'] .venture-fav__texto--off {
-  display: none;
+.product__media-item {
+  position: relative;
 }
 
-.venture-fav--producto[aria-pressed='true'] .venture-fav__texto--on {
-  display: inline;
+@media screen and (min-width: 750px) {
+  .venture-fav--card {
+    right: 1.4rem;
+    bottom: 1.4rem;
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
-/* Enlace "Favoritos" en la cabecera y en el menú móvil, con el número de prendas. */
-.venture-fav-enlace {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: rgb(var(--color-foreground));
-}
-
-.venture-fav-enlace__numero {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.9rem;
-  height: 1.9rem;
-  margin-left: 0.6rem;
-  padding: 0 0.5rem;
-  border-radius: 1rem;
-  border: 0.1rem solid rgb(var(--color-foreground));
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.venture-fav-enlace__numero[hidden] {
-  display: none;
-}
-
-.venture-fav-enlace--drawer {
-  padding: 2rem 3rem 0;
-}
-
-.venture-fav-enlace--drawer .venture-header-text {
-  font-size: 1.4rem;
+/* En la ficha, por encima de la capa que abre el zoom de la foto. */
+.product__media-item .venture-fav--card {
+  z-index: 3;
 }
