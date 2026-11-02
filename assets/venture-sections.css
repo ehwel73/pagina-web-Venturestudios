@@ -1256,3 +1256,18 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
+
+/* ---------- Prueba: subrayados en morado #330066 (variable en venture-theme.css) ---------- */
+.venture-editorial__link,
+.venture-novedades__all,
+.venture-pie__enviar {
+  border-bottom-color: rgb(var(--venture-morado, 23, 25, 28));
+}
+
+.venture-favoritos__vacio a,
+.venture-look__mensaje a,
+.venture-about__social-list a,
+.venture-pie__legal a,
+.venture-pie__columna a:hover {
+  text-decoration-color: rgb(var(--venture-morado, 23, 25, 28));
+}

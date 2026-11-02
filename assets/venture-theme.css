@@ -34,6 +34,8 @@ body {
 /* Paleta "Noche" (provisional, 2 nov 2026). El cobalto es el acento: solo en detalles pequeños. */
 :root {
   --venture-cobalto: 43, 68, 224;
+  /* Prueba (2 nov 2026): morado #330066 en el botón del símbolo y en los subrayados. */
+  --venture-morado: 51, 0, 102;
 }
 
 ::selection {
@@ -632,7 +634,7 @@ button.venture-idioma__opcion:hover {
 /* Toque nocturno: el cobalto marca lo nuevo y lo activo, nunca superficies grandes. */
 .header__active-menu-item,
 .header__menu-item:hover span {
-  box-shadow: inset 0 -1px 0 rgb(var(--venture-cobalto));
+  box-shadow: inset 0 -1px 0 rgb(var(--venture-morado));
 }
 
 .venture-fav[aria-pressed='true'] .venture-fav__icono {
@@ -642,4 +644,12 @@ button.venture-idioma__opcion:hover {
 .venture-look__contador,
 .venture-novedades__tab:focus-visible {
   outline-color: rgb(var(--venture-cobalto));
+}
+
+/* ---------- Prueba: subrayados en morado #330066 ---------- */
+.header__icon:hover .venture-header-text,
+button.venture-idioma__opcion:hover,
+.rte a:not(.button),
+.footer .list-menu__item--link:hover {
+  text-decoration-color: rgb(var(--venture-morado));
 }
