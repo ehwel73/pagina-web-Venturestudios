@@ -218,34 +218,8 @@
     },
     "sobre_nosotros": {
       "type": "venture-sobre-nosotros",
-      "blocks": {
-        "dato_1": {
-          "type": "dato",
-          "settings": {
-            "title": "Envíos en España",
-            "text": "Recibe tu pedido en casa."
-          }
-        },
-        "dato_2": {
-          "type": "dato",
-          "settings": {
-            "title": "Hombre y mujer",
-            "text": "Colecciones para él y para ella."
-          }
-        },
-        "dato_3": {
-          "type": "dato",
-          "settings": {
-            "title": "Pago seguro",
-            "text": "Pago protegido con Shopify."
-          }
-        }
-      },
-      "block_order": [
-        "dato_1",
-        "dato_2",
-        "dato_3"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "eyebrow": "Sobre nosotros",
         "heading": "Venture Studios",
