@@ -22,8 +22,9 @@
       aria-label="{{ 'sections.header.menu' | t }}"
     >
       <span>
-        {{- 'icon-hamburger.svg' | inline_asset_content -}}
-        {{- 'icon-close.svg' | inline_asset_content -}}
+        {%- comment -%} Venture Studios: texto en lugar de iconos {%- endcomment -%}
+        <span class="venture-header-text venture-header-text--abrir">{{ 'venture.header.menu' | t }}</span>
+        <span class="venture-header-text venture-header-text--cerrar">{{ 'venture.header.close' | t }}</span>
       </span>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
@@ -146,6 +147,7 @@
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
+            {%- render 'venture-idioma', context: 'drawer' -%}
             {%- if show_country_selector or show_language_selector -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if show_country_selector -%}

@@ -283,7 +283,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -536,6 +535,16 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
+    }
+  },
+  "venture": {
+    "header": {
+      "search": "Search",
+      "close": "Close",
+      "account": "Account",
+      "cart": "Cart",
+      "menu": "Menu",
+      "language": "Language"
     }
   }
 }

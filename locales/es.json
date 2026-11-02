@@ -548,5 +548,15 @@
       "expanded": "Formulario del destinatario de la tarjeta de regalo expandido",
       "collapsed": "Formulario del destinatario de tarjeta de regalo contraído"
     }
+  },
+  "venture": {
+    "header": {
+      "search": "Buscar",
+      "close": "Cerrar",
+      "account": "Cuenta",
+      "cart": "Carrito",
+      "menu": "Menú",
+      "language": "Idioma"
+    }
   }
 }

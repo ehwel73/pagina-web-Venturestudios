@@ -1,0 +1,37 @@
+{%- comment -%}
+  Venture Studios: botón para cambiar entre idiomas (ES / EN).
+  Solo aparece cuando la tienda tiene más de un idioma publicado.
+  context: 'header' (solo escritorio) o 'drawer' (menú móvil).
+{%- endcomment -%}
+
+{%- if localization.available_languages.size > 1 -%}
+  <div
+    class="venture-idioma venture-idioma--{{ context | default: 'header' }}{% if context == 'header' %} small-hide medium-hide{% endif %}"
+    role="group"
+    aria-label="{{ 'venture.header.language' | t }}"
+  >
+    {%- form 'localization', class: 'venture-idioma__form' -%}
+      {%- for language in localization.available_languages -%}
+        {%- if language.iso_code == localization.language.iso_code -%}
+          <span class="venture-idioma__opcion venture-idioma__opcion--activa" lang="{{ language.iso_code }}" aria-current="true">
+            {{- language.iso_code | upcase -}}
+          </span>
+        {%- else -%}
+          <button
+            type="submit"
+            name="language_code"
+            value="{{ language.iso_code }}"
+            class="venture-idioma__opcion"
+            lang="{{ language.iso_code }}"
+            aria-label="{{ language.endonym_name | capitalize }}"
+          >
+            {{- language.iso_code | upcase -}}
+          </button>
+        {%- endif -%}
+        {%- unless forloop.last -%}
+          <span class="venture-idioma__separador" aria-hidden="true">/</span>
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endform -%}
+  </div>
+{%- endif -%}

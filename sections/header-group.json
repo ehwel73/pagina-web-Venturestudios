@@ -22,8 +22,8 @@
         "show_line_separator": false,
         "color_scheme": "scheme-6",
         "menu_color_scheme": "scheme-6",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
         "margin_bottom": 0,
         "padding_top": 4,
         "padding_bottom": 4

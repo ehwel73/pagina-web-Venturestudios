@@ -413,3 +413,123 @@ button.shopify-payment-button__button--unbranded {
     padding-top: 1.6rem;
   }
 }
+
+/* =========================================================
+ * Cabecera con texto en lugar de iconos (Buscar, Cuenta, Carrito, Menú)
+ * y botón de idioma ES / EN
+ * ========================================================= */
+
+.venture-header-text {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(var(--color-foreground));
+}
+
+.header__icon {
+  width: auto;
+  min-height: 4.4rem;
+  padding: 0 0.8rem;
+}
+
+.header__icon:hover .venture-header-text {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+/* Abrir / cerrar en Menú y Buscar. */
+details .venture-header-text--cerrar {
+  display: none;
+}
+
+details[open] > summary .venture-header-text--cerrar {
+  display: flex;
+}
+
+details[open] > summary .venture-header-text--abrir {
+  display: none;
+}
+
+/* Contador del carrito: a la derecha del texto, no encima. */
+.header__icon--cart .cart-count-bubble {
+  position: static;
+  margin-left: 0.6rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+/* Móvil: más compacto para que quepan Menú y Buscar a un lado y Carrito al otro. */
+@media screen and (max-width: 749px) {
+  .venture-header-text {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header__icon {
+    padding: 0 0.5rem;
+  }
+
+  .header {
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+
+/* Botón de idioma ES / EN */
+.venture-idioma {
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem;
+}
+
+.venture-idioma__form {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.venture-idioma__opcion {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(var(--color-foreground), 0.5);
+  background: none;
+  border: 0;
+  padding: 0.4rem 0.2rem;
+  cursor: pointer;
+}
+
+button.venture-idioma__opcion:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.venture-idioma__opcion--activa {
+  color: rgb(var(--color-foreground));
+  font-weight: 600;
+  cursor: default;
+}
+
+.venture-idioma__separador {
+  color: rgba(var(--color-foreground), 0.35);
+  font-size: 1.1rem;
+}
+
+/* En el menú móvil, más grande y con aire. */
+.venture-idioma--drawer {
+  padding: 2rem 3rem 0;
+}
+
+.venture-idioma--drawer .venture-idioma__opcion,
+.venture-idioma--drawer .venture-idioma__separador {
+  font-size: 1.4rem;
+}
