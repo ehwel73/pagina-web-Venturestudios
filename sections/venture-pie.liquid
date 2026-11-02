@@ -1,0 +1,258 @@
+{%- comment -%}
+  Venture Studios: pie de página.
+  Boletín a la izquierda (formulario de clientes de Shopify, etiqueta "newsletter") y columnas de enlaces
+  a la derecha, con el número de enlaces junto a cada título. De fondo, el logotipo en grande y desenfocado;
+  abajo a la derecha, el símbolo en línea fina; abajo del todo, el copyright.
+{%- endcomment -%}
+
+{{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign social_names = 'Instagram,TikTok,YouTube,X,Facebook,Pinterest,Snapchat,Tumblr,Vimeo' | split: ','
+  assign social_urls = settings.social_instagram_link | append: '||' | append: settings.social_tiktok_link | append: '||' | append: settings.social_youtube_link | append: '||' | append: settings.social_twitter_link | append: '||' | append: settings.social_facebook_link | append: '||' | append: settings.social_pinterest_link | append: '||' | append: settings.social_snapchat_link | append: '||' | append: settings.social_tumblr_link | append: '||' | append: settings.social_vimeo_link
+  assign social_urls = social_urls | split: '||'
+  assign social_count = 0
+  for url in social_urls
+    if url != blank
+      assign social_count = social_count | plus: 1
+    endif
+  endfor
+-%}
+
+<footer class="venture-pie color-{{ section.settings.color_scheme }} gradient">
+  {%- if section.settings.show_watermark -%}
+    <div class="venture-pie__marca" aria-hidden="true">{% render 'venture-logotipo' %}</div>
+  {%- endif -%}
+
+  <div class="page-width venture-pie__inner">
+    <div class="venture-pie__grid">
+      {%- comment -%} Boletín {%- endcomment -%}
+      <div class="venture-pie__boletin">
+        {%- if section.settings.newsletter_heading != blank -%}
+          <h2 class="venture-pie__boletin-titulo">{{ section.settings.newsletter_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.newsletter_text != blank -%}
+          <p class="venture-pie__boletin-texto">{{ section.settings.newsletter_text | escape }}</p>
+        {%- endif -%}
+
+        {%- form 'customer', id: 'VenturePieBoletin', class: 'venture-pie__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="VenturePieEmail-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+          <input
+            id="VenturePieEmail-{{ section.id }}"
+            class="venture-pie__email"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            placeholder="{{ 'venture.footer.email_placeholder' | t }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+            aria-required="true"
+            {% if form.errors %}
+              aria-invalid="true" aria-describedby="VenturePieBoletin-error"
+            {% elsif form.posted_successfully? %}
+              aria-describedby="VenturePieBoletin-success"
+            {% endif %}
+          >
+          <button type="submit" class="venture-pie__enviar" name="commit">
+            <span aria-hidden="true">→</span>
+            {{ section.settings.button_label | escape }}
+          </button>
+
+          {%- if form.errors -%}
+            <p class="venture-pie__mensaje" id="VenturePieBoletin-error" role="alert">
+              {{- form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email -}}
+            </p>
+          {%- elsif form.posted_successfully? -%}
+            <p class="venture-pie__mensaje" id="VenturePieBoletin-success" role="status">{{ 'newsletter.success' | t }}</p>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.legal_text != blank -%}
+          <p class="venture-pie__legal">
+            {{ section.settings.legal_text | escape }}
+            {%- if shop.privacy_policy.url != blank %}
+              <a href="{{ shop.privacy_policy.url }}">{{ 'venture.footer.privacy' | t }}</a>.
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Columnas de enlaces {%- endcomment -%}
+      <div class="venture-pie__columnas">
+        {%- for block in section.blocks -%}
+          <div class="venture-pie__columna" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+              {%- when 'menu' -%}
+                {%- assign menu = block.settings.menu -%}
+                <h2 class="venture-pie__titulo">
+                  {{- block.settings.heading | escape -}}
+                  {%- if menu.links.size > 0 -%}<sup>{{ menu.links.size }}</sup>{%- endif -%}
+                </h2>
+                {%- if menu.links.size > 0 -%}
+                  <ul class="list-unstyled" role="list">
+                    {%- for link in menu.links -%}
+                      <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                {%- elsif request.design_mode -%}
+                  <p class="venture-pie__aviso">{{ 'venture.footer.choose_menu' | t }}</p>
+                {%- endif -%}
+
+              {%- when 'politicas' -%}
+                {%- liquid
+                  assign extra = block.settings.menu
+                  assign total = shop.policies.size
+                  if extra.links.size > 0
+                    assign total = total | plus: extra.links.size
+                  endif
+                -%}
+                <h2 class="venture-pie__titulo">
+                  {{- block.settings.heading | escape -}}
+                  {%- if total > 0 -%}<sup>{{ total }}</sup>{%- endif -%}
+                </h2>
+                <ul class="list-unstyled" role="list">
+                  {%- for policy in shop.policies -%}
+                    <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+                  {%- endfor -%}
+                  {%- for link in extra.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                  {%- endfor -%}
+                </ul>
+
+              {%- when 'redes' -%}
+                <h2 class="venture-pie__titulo">
+                  {{- block.settings.heading | escape -}}
+                  {%- if social_count > 0 -%}<sup>{{ social_count }}</sup>{%- endif -%}
+                </h2>
+                {%- if social_count > 0 -%}
+                  <ul class="list-unstyled" role="list">
+                    {%- for url in social_urls -%}
+                      {%- if url != blank -%}
+                        <li><a href="{{ url }}" target="_blank" rel="noopener">{{ social_names[forloop.index0] }}</a></li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                {%- elsif request.design_mode -%}
+                  <p class="venture-pie__aviso">{{ 'venture.footer.add_social' | t }}</p>
+                {%- endif -%}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.settings.show_symbol -%}
+      <svg class="venture-pie__simbolo" viewBox="-10 60 1020 880" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M1000.0,484.9L629.4,491.0L546.0,536.0L534.8,565.5L426.0,676.3L561.4,633.6L655.8,599.5L658.4,600.0L623.4,696.9L609.1,668.8L572.1,650.7L572.4,929.9L759.8,564.1ZM470.5,354.5L54.5,356.8L373.5,451.8ZM874.9,70.1L615.7,295.2L257.2,614.3L-0.0,827.8L369.2,687.4L493.1,565.1L373.0,606.0L372.8,604.0L464.6,502.2L482.7,479.7L498.6,466.8L508.8,453.6L554.9,405.7L556.1,406.8L537.6,443.9L509.8,476.4L575.2,477.1L839.4,121.4Z"/>
+      </svg>
+    {%- endif -%}
+
+    <p class="venture-pie__copy">
+      © {{ 'now' | date: '%Y' }} {{ shop.name | escape }}
+      {%- if section.settings.tagline != blank %} · {{ section.settings.tagline | escape }}{% endif -%}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "VS · Pie",
+  "tag": "div",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Boletín"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Titular",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Texto",
+      "default": "Recibe las novedades de Venture Studios en tu correo."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Suscríbete y obtén un 15 % de descuento"
+    },
+    {
+      "type": "text",
+      "id": "legal_text",
+      "label": "Texto legal",
+      "info": "Detrás se añade el enlace a la política de privacidad si existe (Ajustes > Políticas).",
+      "default": "Al suscribirte aceptas recibir comunicaciones comerciales de Venture Studios por correo. Consulta nuestra"
+    },
+    {
+      "type": "header",
+      "content": "Marca"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_watermark",
+      "label": "Logotipo grande desenfocado de fondo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_symbol",
+      "label": "Símbolo en línea abajo a la derecha",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Frase junto al copyright",
+      "info": "Opcional."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Columna de enlaces",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Contacto" },
+        { "type": "link_list", "id": "menu", "label": "Menú" }
+      ]
+    },
+    {
+      "type": "politicas",
+      "name": "Políticas de la tienda",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Empresa" },
+        { "type": "link_list", "id": "menu", "label": "Enlaces extra (opcional)", "info": "Las políticas de Ajustes > Políticas salen solas." }
+      ]
+    },
+    {
+      "type": "redes",
+      "name": "Redes sociales",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Redes" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Pie"
+    }
+  ]
+}
+{% endschema %}

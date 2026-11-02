@@ -11,23 +11,6 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "footer": {
-      "type": "footer",
-      "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Suscríbete para recibir un 15 % de descuento",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 64,
-        "padding_bottom": 40
-      }
-    },
     "contacto": {
       "type": "venture-contacto",
       "settings": {
@@ -37,10 +20,54 @@
         "position": "right",
         "style": "light"
       }
+    },
+    "pie": {
+      "type": "venture-pie",
+      "blocks": {
+        "contacto": {
+          "type": "menu",
+          "settings": {
+            "heading": "Contacto"
+          }
+        },
+        "clientes": {
+          "type": "menu",
+          "settings": {
+            "heading": "Atención al cliente"
+          }
+        },
+        "empresa": {
+          "type": "politicas",
+          "settings": {
+            "heading": "Empresa"
+          }
+        },
+        "redes": {
+          "type": "redes",
+          "settings": {
+            "heading": "Redes"
+          }
+        }
+      },
+      "block_order": [
+        "contacto",
+        "clientes",
+        "empresa",
+        "redes"
+      ],
+      "settings": {
+        "newsletter_heading": "Newsletter",
+        "newsletter_text": "Recibe las novedades de Venture Studios en tu correo.",
+        "button_label": "Suscríbete y obtén un 15 % de descuento",
+        "legal_text": "Al suscribirte aceptas recibir comunicaciones comerciales de Venture Studios por correo. Consulta nuestra",
+        "show_watermark": true,
+        "show_symbol": true,
+        "color_scheme": "scheme-6"
+      }
     }
   },
   "order": [
-    "footer",
+    "pie",
     "contacto"
   ]
 }

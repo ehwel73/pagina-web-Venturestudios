@@ -571,6 +571,12 @@
     },
     "about": {
       "follow": "Follow us"
+    },
+    "footer": {
+      "email_placeholder": "Enter your email",
+      "privacy": "Privacy policy",
+      "choose_menu": "Choose a menu for this column in the theme editor.",
+      "add_social": "Add your social links in Theme settings > Social media."
     }
   }
 }

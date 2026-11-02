@@ -583,6 +583,12 @@
     },
     "about": {
       "follow": "Síguenos"
+    },
+    "footer": {
+      "email_placeholder": "Introduce tu correo electrónico",
+      "privacy": "política de privacidad",
+      "choose_menu": "Elige un menú para esta columna en el editor del tema.",
+      "add_social": "Añade tus redes en Ajustes del tema > Redes sociales."
     }
   }
 }
