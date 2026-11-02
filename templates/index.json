@@ -26,46 +26,6 @@
         "text_color": "#EEF4F5"
       }
     },
-    "franja": {
-      "type": "venture-marquee",
-      "blocks": {
-        "texto_1": {
-          "type": "item",
-          "settings": {
-            "text": "Venture Studios",
-            "link": ""
-          }
-        },
-        "texto_2": {
-          "type": "item",
-          "settings": {
-            "text": "Nueva colección",
-            "link": ""
-          }
-        },
-        "texto_3": {
-          "type": "item",
-          "settings": {
-            "text": "Ropa de calle",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "texto_1",
-        "texto_2",
-        "texto_3"
-      ],
-      "settings": {
-        "speed": 30,
-        "direction": "left",
-        "size": "small",
-        "show_borders": true,
-        "color_scheme": "scheme-1",
-        "show_separator": true,
-        "gap": 64
-      }
-    },
     "colecciones": {
       "type": "collection-list",
       "blocks": {
@@ -236,7 +196,6 @@
   },
   "order": [
     "venture_hero",
-    "franja",
     "novedades",
     "ver_todo",
     "look",
