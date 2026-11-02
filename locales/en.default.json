@@ -564,7 +564,10 @@
       "view_cart": "View cart",
       "error_size": "Choose a size for every item.",
       "error": "Couldn't add the look. Please try again.",
-      "empty": "Choose the products of the look in the theme editor."
+      "empty": "Choose the products of the look in the theme editor.",
+      "slide": "look",
+      "previous": "Previous look",
+      "next": "Next look"
     }
   }
 }

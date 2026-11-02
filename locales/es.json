@@ -576,7 +576,10 @@
       "view_cart": "Ver carrito",
       "error_size": "Elige la talla de todas las prendas.",
       "error": "No se ha podido añadir el look. Inténtalo de nuevo.",
-      "empty": "Elige las prendas del look en el editor del tema."
+      "empty": "Elige las prendas del look en el editor del tema.",
+      "slide": "look",
+      "previous": "Look anterior",
+      "next": "Look siguiente"
     }
   }
 }

@@ -1,9 +1,13 @@
 {%- comment -%}
-  Venture Studios: "Compra el look". Foto del outfit completo y la lista de prendas que lo forman.
+  Venture Studios: "Compra el look" en carrusel.
+  Cada bloque "Look" tiene su foto y sus prendas. Las flechas a los lados de la foto pasan de un look a otro;
+  la lista de prendas, el total y el botón de añadir cambian con cada look.
   El cliente elige la talla de cada prenda y añade el look entero al carrito de una vez.
 {%- endcomment -%}
 
 {{ 'venture-sections.css' | asset_url | stylesheet_tag }}
+
+{%- assign looks_count = section.blocks.size -%}
 
 <div
   id="Look-{{ section.id }}"
@@ -12,105 +16,146 @@
   data-cart-add-url="{{ routes.cart_add_url }}"
   data-msg-size="{{ 'venture.look.error_size' | t | escape }}"
   data-msg-error="{{ 'venture.look.error' | t | escape }}"
+  data-msg-added="{{ 'venture.look.added' | t | escape }}"
+  data-msg-view-cart="{{ 'venture.look.view_cart' | t | escape }}"
 >
-  <div class="page-width venture-look__grid venture-look__grid--image-{{ section.settings.image_side }}">
-    <div class="venture-look__media">
-      {%- if section.settings.image != blank -%}
-        {{
-          section.settings.image
-          | image_url: width: 1800
-          | image_tag:
-            widths: '375, 550, 750, 1100, 1500, 1800',
-            sizes: '(min-width: 990px) 55vw, 100vw',
-            loading: 'lazy',
-            class: 'venture-look__image'
-        }}
-      {%- else -%}
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'venture-look__image venture-look__placeholder' }}
-      {%- endif -%}
-    </div>
-
-    <div class="venture-look__content">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="venture-look__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-      {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h2 class="venture-look__heading">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
-
-      <ul class="venture-look__lista list-unstyled" role="list">
-        {%- assign has_products = false -%}
-        {%- for block in section.blocks -%}
-          {%- assign look_product = block.settings.product -%}
-          {%- if look_product == blank -%}
-            {%- continue -%}
+  <div class="page-width">
+    {%- for block in section.blocks -%}
+      {%- assign look_index = forloop.index -%}
+      <div
+        class="venture-look__slide venture-look__grid venture-look__grid--image-{{ section.settings.image_side }}"
+        data-look-slide
+        role="group"
+        aria-roledescription="{{ 'venture.look.slide' | t }}"
+        aria-label="{{ look_index }} / {{ looks_count }}"
+        {% unless forloop.first %}
+          hidden
+        {% endunless %}
+        {{ block.shopify_attributes }}
+      >
+        <div class="venture-look__media">
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1800
+              | image_tag:
+                widths: '375, 550, 750, 1100, 1500, 1800',
+                sizes: '(min-width: 990px) 55vw, 100vw',
+                loading: 'lazy',
+                class: 'venture-look__image'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'venture-look__image venture-look__placeholder' }}
           {%- endif -%}
-          {%- assign has_products = true -%}
-          {%- assign default_variant = look_product.selected_or_first_available_variant -%}
-          <li class="venture-look__item" {{ block.shopify_attributes }}>
-            <a class="venture-look__thumb" href="{{ look_product.url }}">
-              {%- if look_product.featured_media -%}
-                {{
-                  look_product.featured_media
-                  | image_url: width: 240
-                  | image_tag: loading: 'lazy', alt: look_product.title, widths: '120, 240'
-                }}
-              {%- endif -%}
-            </a>
-            <div class="venture-look__info">
-              <a class="venture-look__nombre" href="{{ look_product.url }}">{{ look_product.title | escape }}</a>
-              <span class="venture-look__precio" data-look-precio>{{ default_variant.price | money }}</span>
 
-              {%- if look_product.has_only_default_variant -%}
-                <input type="hidden" data-look-variant value="{{ default_variant.id }}" data-price="{{ default_variant.price }}">
-                {%- unless default_variant.available -%}
-                  <span class="venture-look__agotado">{{ 'products.product.sold_out' | t }}</span>
-                {%- endunless -%}
-              {%- else -%}
-                <label class="visually-hidden" for="LookTalla-{{ section.id }}-{{ forloop.index }}">
-                  {{- 'venture.look.size' | t }}: {{ look_product.title | escape -}}
-                </label>
-                <select
-                  id="LookTalla-{{ section.id }}-{{ forloop.index }}"
-                  class="venture-look__talla"
-                  data-look-variant
-                >
-                  <option value="" data-price="{{ default_variant.price }}">{{ 'venture.look.choose_size' | t }}</option>
-                  {%- for variant in look_product.variants -%}
-                    <option
-                      value="{{ variant.id }}"
-                      data-price="{{ variant.price }}"
-                      data-price-text="{{ variant.price | money }}"
-                      {% unless variant.available %}
-                        disabled
-                      {% endunless %}
-                    >
-                      {{- variant.title | escape -}}
-                      {%- unless variant.available %} · {{ 'products.product.sold_out' | t }}{% endunless -%}
-                    </option>
-                  {%- endfor -%}
-                </select>
-              {%- endif -%}
-            </div>
-          </li>
-        {%- endfor -%}
-
-        {%- unless has_products -%}
-          <li class="venture-look__vacio">{{ 'venture.look.empty' | t }}</li>
-        {%- endunless -%}
-      </ul>
-
-      {%- if has_products -%}
-        <div class="venture-look__total">
-          <span>{{ 'venture.look.total' | t }}</span>
-          <span data-look-total></span>
+          {%- if looks_count > 1 -%}
+            <button
+              type="button"
+              class="venture-look__flecha venture-look__flecha--prev"
+              data-look-prev
+              aria-label="{{ 'venture.look.previous' | t }}"
+              aria-controls="Look-{{ section.id }}"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7"/></svg>
+            </button>
+            <button
+              type="button"
+              class="venture-look__flecha venture-look__flecha--next"
+              data-look-next
+              aria-label="{{ 'venture.look.next' | t }}"
+              aria-controls="Look-{{ section.id }}"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>
+            </button>
+            <span class="venture-look__contador" aria-hidden="true">{{ look_index }} / {{ looks_count }}</span>
+          {%- endif -%}
         </div>
-        <button type="button" class="button button--full-width venture-look__boton" data-look-add>
-          {{- 'venture.look.add_all' | t -}}
-        </button>
-        <p class="venture-look__mensaje" data-look-mensaje role="status" aria-live="polite"></p>
-      {%- endif -%}
-    </div>
+
+        <div class="venture-look__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="venture-look__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- liquid
+            assign look_heading = block.settings.title
+            if look_heading == blank
+              assign look_heading = section.settings.heading
+            endif
+          -%}
+          {%- if look_heading != blank -%}
+            <h2 class="venture-look__heading">{{ look_heading | escape }}</h2>
+          {%- endif -%}
+
+          <ul class="venture-look__lista list-unstyled" role="list">
+            {%- for look_product in block.settings.products -%}
+              {%- assign default_variant = look_product.selected_or_first_available_variant -%}
+              <li class="venture-look__item">
+                <a class="venture-look__thumb" href="{{ look_product.url }}">
+                  {%- if look_product.featured_media -%}
+                    {{
+                      look_product.featured_media
+                      | image_url: width: 240
+                      | image_tag: loading: 'lazy', alt: look_product.title, widths: '120, 240'
+                    }}
+                  {%- endif -%}
+                </a>
+                <div class="venture-look__info">
+                  <a class="venture-look__nombre" href="{{ look_product.url }}">{{ look_product.title | escape }}</a>
+                  <span class="venture-look__precio" data-look-precio>{{ default_variant.price | money }}</span>
+
+                  {%- if look_product.has_only_default_variant -%}
+                    <input type="hidden" data-look-variant value="{{ default_variant.id }}" data-price="{{ default_variant.price }}">
+                    {%- unless default_variant.available -%}
+                      <span class="venture-look__agotado">{{ 'products.product.sold_out' | t }}</span>
+                    {%- endunless -%}
+                  {%- else -%}
+                    <label class="visually-hidden" for="LookTalla-{{ section.id }}-{{ look_index }}-{{ forloop.index }}">
+                      {{- 'venture.look.size' | t }}: {{ look_product.title | escape -}}
+                    </label>
+                    <select
+                      id="LookTalla-{{ section.id }}-{{ look_index }}-{{ forloop.index }}"
+                      class="venture-look__talla"
+                      data-look-variant
+                    >
+                      <option value="" data-price="{{ default_variant.price }}">{{ 'venture.look.choose_size' | t }}</option>
+                      {%- for variant in look_product.variants -%}
+                        <option
+                          value="{{ variant.id }}"
+                          data-price="{{ variant.price }}"
+                          data-price-text="{{ variant.price | money }}"
+                          {% unless variant.available %}
+                            disabled
+                          {% endunless %}
+                        >
+                          {{- variant.title | escape -}}
+                          {%- unless variant.available %} · {{ 'products.product.sold_out' | t }}{% endunless -%}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- else -%}
+              <li class="venture-look__vacio">{{ 'venture.look.empty' | t }}</li>
+            {%- endfor -%}
+          </ul>
+
+          {%- if block.settings.products.size > 0 -%}
+            <div class="venture-look__total">
+              <span>{{ 'venture.look.total' | t }}</span>
+              <span data-look-total></span>
+            </div>
+            <button type="button" class="button button--full-width venture-look__boton" data-look-add>
+              {{- 'venture.look.add_all' | t -}}
+            </button>
+            <p class="venture-look__mensaje" data-look-mensaje role="status" aria-live="polite"></p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- if looks_count == 0 -%}
+      <p class="venture-look__vacio">{{ 'venture.look.empty' | t }}</p>
+    {%- endif -%}
   </div>
 </div>
 
@@ -118,27 +163,69 @@
   (function () {
     var root = document.getElementById('Look-{{ section.id }}');
     if (!root) return;
-    var button = root.querySelector('[data-look-add]');
-    if (!button) return;
-    var totalEl = root.querySelector('[data-look-total]');
-    var message = root.querySelector('[data-look-mensaje]');
+    var slides = Array.prototype.slice.call(root.querySelectorAll('[data-look-slide]'));
+    var current = 0;
     var currency = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR';
     var money = new Intl.NumberFormat(document.documentElement.lang || 'es', { style: 'currency', currency: currency });
 
-    function fields() {
-      return Array.prototype.slice.call(root.querySelectorAll('[data-look-variant]'));
+    /* ----- Carrusel ----- */
+    function show(index) {
+      if (!slides.length) return;
+      current = (index + slides.length) % slides.length;
+      slides.forEach(function (slide, i) {
+        slide.hidden = i !== current;
+      });
+    }
+
+    root.addEventListener('click', function (event) {
+      if (event.target.closest('[data-look-prev]')) {
+        show(current - 1);
+        var prev = slides[current].querySelector('[data-look-prev]');
+        if (prev) prev.focus();
+      } else if (event.target.closest('[data-look-next]')) {
+        show(current + 1);
+        var next = slides[current].querySelector('[data-look-next]');
+        if (next) next.focus();
+      }
+    });
+
+    /* Deslizar con el dedo sobre la foto en móvil. */
+    var startX = null;
+    root.addEventListener(
+      'touchstart',
+      function (event) {
+        if (event.target.closest('.venture-look__media')) startX = event.touches[0].clientX;
+      },
+      { passive: true }
+    );
+    root.addEventListener('touchend', function (event) {
+      if (startX === null) return;
+      var dx = event.changedTouches[0].clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 40 && slides.length > 1) show(current + (dx < 0 ? 1 : -1));
+    });
+
+    /* En el editor de temas: al elegir un look en el panel lateral, se muestra. */
+    document.addEventListener('shopify:block:select', function (event) {
+      var i = slides.indexOf(event.target);
+      if (i !== -1) show(i);
+    });
+
+    /* ----- Total y añadir al carrito (por look) ----- */
+    function fields(slide) {
+      return Array.prototype.slice.call(slide.querySelectorAll('[data-look-variant]'));
     }
 
     function priceOf(field) {
-      if (field.tagName === 'SELECT') {
-        return parseInt(field.options[field.selectedIndex].getAttribute('data-price'), 10) || 0;
-      }
-      return parseInt(field.getAttribute('data-price'), 10) || 0;
+      var source = field.tagName === 'SELECT' ? field.options[field.selectedIndex] : field;
+      return parseInt(source.getAttribute('data-price'), 10) || 0;
     }
 
-    function update() {
+    function update(slide) {
+      var totalEl = slide.querySelector('[data-look-total]');
+      if (!totalEl) return;
       var total = 0;
-      fields().forEach(function (field) {
+      fields(slide).forEach(function (field) {
         total += priceOf(field);
         if (field.tagName === 'SELECT') {
           var text = field.options[field.selectedIndex].getAttribute('data-price-text');
@@ -150,75 +237,83 @@
       totalEl.textContent = money.format(total / 100);
     }
 
-    function sectionHTML(html, selector) {
+    function sectionHTML(html) {
       var doc = new DOMParser().parseFromString(html, 'text/html');
-      var el = doc.querySelector(selector) || doc.querySelector('.shopify-section');
+      var el = doc.querySelector('.shopify-section');
       return el ? el.innerHTML : '';
     }
 
-    root.addEventListener('change', update);
-
-    button.addEventListener('click', function () {
-      var missing = fields().filter(function (f) {
-        return !f.value;
-      });
-      if (missing.length) {
-        missing.forEach(function (f) {
-          f.classList.add('venture-look__talla--error');
-        });
-        missing[0].focus();
-        message.textContent = root.getAttribute('data-msg-size');
-        return;
-      }
-
-      var drawer = document.querySelector('cart-drawer');
-      var sections = drawer ? ['cart-drawer', 'cart-icon-bubble'] : ['cart-icon-bubble'];
-      button.setAttribute('aria-disabled', 'true');
-      button.classList.add('loading');
-      message.textContent = '';
-
-      fetch(root.getAttribute('data-cart-add-url') + '.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          items: fields().map(function (f) {
-            return { id: parseInt(f.value, 10), quantity: 1 };
-          }),
-          sections: sections,
-          sections_url: window.location.pathname
-        })
-      })
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (data) {
-          if (data.status) {
-            message.textContent = data.description || root.getAttribute('data-msg-error');
-            return;
-          }
-          if (drawer && typeof drawer.renderContents === 'function') {
-            drawer.renderContents(data);
-          } else {
-            var bubble = document.getElementById('cart-icon-bubble');
-            if (bubble && data.sections && data.sections['cart-icon-bubble']) {
-              bubble.innerHTML = sectionHTML(data.sections['cart-icon-bubble'], '.shopify-section');
-            }
-            message.innerHTML =
-              '{{ 'venture.look.added' | t | escape }} <a href="' +
-              root.getAttribute('data-cart-url') +
-              '">{{ 'venture.look.view_cart' | t | escape }}</a>';
-          }
-        })
-        .catch(function () {
-          message.textContent = root.getAttribute('data-msg-error');
-        })
-        .finally(function () {
-          button.removeAttribute('aria-disabled');
-          button.classList.remove('loading');
-        });
+    root.addEventListener('change', function (event) {
+      var slide = event.target.closest('[data-look-slide]');
+      if (slide) update(slide);
     });
 
-    update();
+    slides.forEach(function (slide) {
+      update(slide);
+      var button = slide.querySelector('[data-look-add]');
+      if (!button) return;
+      var message = slide.querySelector('[data-look-mensaje]');
+
+      button.addEventListener('click', function () {
+        var missing = fields(slide).filter(function (f) {
+          return !f.value;
+        });
+        if (missing.length) {
+          missing.forEach(function (f) {
+            f.classList.add('venture-look__talla--error');
+          });
+          missing[0].focus();
+          message.textContent = root.getAttribute('data-msg-size');
+          return;
+        }
+
+        var drawer = document.querySelector('cart-drawer');
+        button.setAttribute('aria-disabled', 'true');
+        button.classList.add('loading');
+        message.textContent = '';
+
+        fetch(root.getAttribute('data-cart-add-url') + '.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            items: fields(slide).map(function (f) {
+              return { id: parseInt(f.value, 10), quantity: 1 };
+            }),
+            sections: drawer ? ['cart-drawer', 'cart-icon-bubble'] : ['cart-icon-bubble'],
+            sections_url: window.location.pathname
+          })
+        })
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (data) {
+            if (data.status) {
+              message.textContent = data.description || root.getAttribute('data-msg-error');
+              return;
+            }
+            if (drawer && typeof drawer.renderContents === 'function') {
+              drawer.renderContents(data);
+              return;
+            }
+            var bubble = document.getElementById('cart-icon-bubble');
+            if (bubble && data.sections && data.sections['cart-icon-bubble']) {
+              bubble.innerHTML = sectionHTML(data.sections['cart-icon-bubble']);
+            }
+            message.textContent = root.getAttribute('data-msg-added') + ' ';
+            var link = document.createElement('a');
+            link.href = root.getAttribute('data-cart-url');
+            link.textContent = root.getAttribute('data-msg-view-cart');
+            message.appendChild(link);
+          })
+          .catch(function () {
+            message.textContent = root.getAttribute('data-msg-error');
+          })
+          .finally(function () {
+            button.removeAttribute('aria-disabled');
+            button.classList.remove('loading');
+          });
+      });
+    });
   })();
 </script>
 
@@ -241,13 +336,8 @@
   "name": "VS · Compra el look",
   "tag": "section",
   "class": "section",
-  "max_blocks": 6,
+  "max_blocks": 10,
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Foto del outfit"
-    },
     {
       "type": "select",
       "id": "image_side",
@@ -268,6 +358,7 @@
       "type": "text",
       "id": "heading",
       "label": "Titular",
+      "info": "Se usa en los looks que no tienen nombre propio.",
       "default": "Compra el look"
     },
     {
@@ -299,13 +390,26 @@
   ],
   "blocks": [
     {
-      "type": "prenda",
-      "name": "Prenda",
+      "type": "look",
+      "name": "Look",
       "settings": [
         {
-          "type": "product",
-          "id": "product",
-          "label": "Producto"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto del outfit",
+          "info": "Recomendado en vertical (4:5)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nombre del look",
+          "info": "Opcional. Si lo dejas vacío, se usa el titular de la sección."
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Prendas del look",
+          "limit": 6
         }
       ]
     }
@@ -314,9 +418,8 @@
     {
       "name": "VS · Compra el look",
       "blocks": [
-        { "type": "prenda" },
-        { "type": "prenda" },
-        { "type": "prenda" }
+        { "type": "look" },
+        { "type": "look" }
       ]
     }
   ]

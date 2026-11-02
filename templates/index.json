@@ -180,23 +180,23 @@
     "look": {
       "type": "venture-look",
       "blocks": {
-        "prenda_1": {
-          "type": "prenda",
+        "look_1": {
+          "type": "look",
           "settings": {}
         },
-        "prenda_2": {
-          "type": "prenda",
+        "look_2": {
+          "type": "look",
           "settings": {}
         },
-        "prenda_3": {
-          "type": "prenda",
+        "look_3": {
+          "type": "look",
           "settings": {}
         }
       },
       "block_order": [
-        "prenda_1",
-        "prenda_2",
-        "prenda_3"
+        "look_1",
+        "look_2",
+        "look_3"
       ],
       "settings": {
         "image_side": "left",

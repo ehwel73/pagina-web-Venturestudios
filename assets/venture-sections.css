@@ -771,3 +771,99 @@
   color: rgb(var(--color-foreground));
   text-underline-offset: 0.3rem;
 }
+
+/* Carrusel de looks: flechas a los lados de la foto. */
+.venture-look__slide[hidden] {
+  display: none;
+}
+
+.venture-look__media {
+  position: relative;
+}
+
+.venture-look__flecha {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #161513;
+  box-shadow: 0 0.2rem 0.8rem rgba(22, 21, 19, 0.12);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.venture-look__flecha--prev {
+  left: 1.2rem;
+}
+
+.venture-look__flecha--next {
+  right: 1.2rem;
+}
+
+.venture-look__flecha svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.venture-look__flecha:hover {
+  background: #ffffff;
+  transform: scale(1.06);
+}
+
+.venture-look__flecha:focus-visible {
+  outline: 0.2rem solid #ffffff;
+  outline-offset: 0.3rem;
+}
+
+.venture-look__contador {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  z-index: 1;
+  transform: translateX(-50%);
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: #161513;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+@media screen and (min-width: 750px) {
+  .venture-look__flecha {
+    width: 5.2rem;
+    height: 5.2rem;
+    margin-top: -2.6rem;
+  }
+
+  .venture-look__flecha--prev {
+    left: 2rem;
+  }
+
+  .venture-look__flecha--next {
+    right: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venture-look__flecha,
+  .venture-look__flecha:hover {
+    transition: none;
+    transform: none;
+  }
+}
