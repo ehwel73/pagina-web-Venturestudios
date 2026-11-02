@@ -25,16 +25,23 @@
       target="_blank" rel="noopener"
     {% endif %}
   >
-    <svg
-      class="venture-contacto__simbolo"
-      viewBox="0 70.1 1000 859.8"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path fill-rule="evenodd" d="M1000.0,484.9L629.4,491.0L546.0,536.0L534.8,565.5L426.0,676.3L561.4,633.6L655.8,599.5L658.4,600.0L623.4,696.9L609.1,668.8L572.1,650.7L572.4,929.9L759.8,564.1ZM470.5,354.5L54.5,356.8L373.5,451.8ZM874.9,70.1L615.7,295.2L257.2,614.3L-0.0,827.8L369.2,687.4L493.1,565.1L373.0,606.0L372.8,604.0L464.6,502.2L482.7,479.7L498.6,466.8L508.8,453.6L554.9,405.7L556.1,406.8L537.6,443.9L509.8,476.4L575.2,477.1L839.4,121.4Z"/>
-    </svg>
+    {%- comment -%} Símbolo en 3D: varias capas apiladas en profundidad que giran juntas. {%- endcomment -%}
+    <span class="venture-contacto__escena" aria-hidden="true">
+      <span class="venture-contacto__giro">
+        {%- for capa in (0..10) -%}
+          <svg
+            class="venture-contacto__simbolo{% if capa == 0 or capa == 10 %} venture-contacto__simbolo--cara{% endif %}"
+            style="--capa: {{ capa }};"
+            viewBox="0 70.1 1000 859.8"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            focusable="false"
+          >
+            <path fill-rule="evenodd" d="M1000.0,484.9L629.4,491.0L546.0,536.0L534.8,565.5L426.0,676.3L561.4,633.6L655.8,599.5L658.4,600.0L623.4,696.9L609.1,668.8L572.1,650.7L572.4,929.9L759.8,564.1ZM470.5,354.5L54.5,356.8L373.5,451.8ZM874.9,70.1L615.7,295.2L257.2,614.3L-0.0,827.8L369.2,687.4L493.1,565.1L373.0,606.0L372.8,604.0L464.6,502.2L482.7,479.7L498.6,466.8L508.8,453.6L554.9,405.7L556.1,406.8L537.6,443.9L509.8,476.4L575.2,477.1L839.4,121.4Z"/>
+          </svg>
+        {%- endfor -%}
+      </span>
+    </span>
   </a>
 {%- endif -%}
 
@@ -71,9 +78,61 @@
     color: #ffffff;
   }
 
-  .venture-contacto__simbolo {
+  /* Escena 3D: el símbolo gira sobre su eje vertical como una moneda. */
+  .venture-contacto__escena {
+    display: block;
     width: 3rem;
-    height: auto;
+    height: 2.6rem;
+    perspective: 24rem;
+  }
+
+  .venture-contacto__giro {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: venture-contacto-giro 6s linear infinite;
+  }
+
+  .venture-contacto__simbolo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* 11 capas separadas 0,3 px: unos 3 px de grosor. Las interiores, en gris, hacen de canto. */
+    transform: translateZ(calc((var(--capa) - 5) * 0.03rem));
+    color: #5a5752;
+    backface-visibility: visible;
+  }
+
+  .venture-contacto__simbolo--cara {
+    color: currentColor;
+  }
+
+  .venture-contacto--light .venture-contacto__simbolo--cara {
+    color: #161513;
+  }
+
+  .venture-contacto--dark .venture-contacto__simbolo {
+    color: #b9b4ab;
+  }
+
+  .venture-contacto--dark .venture-contacto__simbolo--cara {
+    color: #ffffff;
+  }
+
+  .venture-contacto:hover .venture-contacto__giro {
+    animation-duration: 2.4s;
+  }
+
+  @keyframes venture-contacto-giro {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
   }
 
   .venture-contacto:hover {
@@ -101,8 +160,9 @@
       left: 2.4rem;
     }
 
-    .venture-contacto__simbolo {
+    .venture-contacto__escena {
       width: 3.4rem;
+      height: 3rem;
     }
   }
 
@@ -111,6 +171,10 @@
     .venture-contacto:hover {
       transition: none;
       transform: none;
+    }
+
+    .venture-contacto__giro {
+      animation: none;
     }
   }
 </style>
