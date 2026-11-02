@@ -14,13 +14,16 @@
         {{ block.settings.text | escape }}
       {%- endif -%}
     </span>
-    <span class="venture-marquee__separator" aria-hidden="true"></span>
+    {%- if section.settings.show_separator -%}
+      <span class="venture-marquee__separator" aria-hidden="true"></span>
+    {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
 
 <div
-  class="venture-marquee color-{{ section.settings.color_scheme }} gradient venture-marquee--{{ section.settings.size }}{% if section.settings.show_borders %} venture-marquee--borders{% endif %}"
-  style="--venture-marquee-duration: {{ section.settings.speed }}s;"
+  id="Marquee-{{ section.id }}"
+  class="venture-marquee color-{{ section.settings.color_scheme }} gradient venture-marquee--{{ section.settings.size }}{% if section.settings.show_borders %} venture-marquee--borders{% endif %}{% unless section.settings.show_separator %} venture-marquee--sin-separador{% endunless %}"
+  style="--venture-marquee-duration: {{ section.settings.speed }}s; --venture-marquee-gap: {{ section.settings.gap }}px;"
 >
   {%- if section.blocks.size > 0 -%}
     <div class="venture-marquee__track{% if section.settings.direction == 'right' %} venture-marquee__track--reverse{% endif %}">
@@ -29,6 +32,45 @@
     </div>
   {%- endif -%}
 </div>
+
+<script>
+  /* Rellena la tira con las repeticiones necesarias para cubrir todo el ancho: así el bucle
+     nunca deja un hueco a la derecha, por corto que sea el texto. */
+  (function () {
+    var root = document.getElementById('Marquee-{{ section.id }}');
+    if (!root) return;
+    var groups = root.querySelectorAll('.venture-marquee__group');
+    if (groups.length < 2) return;
+    var base = groups[0].innerHTML;
+    var lastWidth = 0;
+
+    function fill() {
+      var width = root.offsetWidth;
+      if (!width || width === lastWidth) return;
+      lastWidth = width;
+      groups[0].innerHTML = base;
+      var guard = 0;
+      while (groups[0].scrollWidth < width && guard < 30) {
+        groups[0].insertAdjacentHTML('beforeend', '<span class="venture-marquee__copia" aria-hidden="true">' + base + '</span>');
+        guard++;
+      }
+      groups[1].innerHTML = groups[0].innerHTML;
+    }
+
+    fill();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        lastWidth = 0;
+        fill();
+      });
+    }
+    var timer;
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(fill, 150);
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -68,6 +110,22 @@
         { "value": "large", "label": "Grande" }
       ],
       "default": "small"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Punto entre textos",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 16,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Separación entre textos",
+      "default": 64
     },
     {
       "type": "checkbox",

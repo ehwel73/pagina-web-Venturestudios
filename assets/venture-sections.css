@@ -1014,3 +1014,12 @@
   font-size: 1.4rem;
   color: rgba(var(--color-foreground), 0.8);
 }
+
+/* Separación entre textos sin punto (ajustable en el editor) y copias de relleno del bucle. */
+.venture-marquee--sin-separador .venture-marquee__item {
+  padding-right: var(--venture-marquee-gap, 64px);
+}
+
+.venture-marquee__copia {
+  display: contents;
+}

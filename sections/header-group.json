@@ -47,7 +47,9 @@
         "direction": "left",
         "size": "bar",
         "show_borders": false,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-2",
+        "show_separator": false,
+        "gap": 120
       }
     }
   },
