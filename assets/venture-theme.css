@@ -39,7 +39,7 @@ body {
 }
 
 ::selection {
-  background: rgb(var(--venture-cobalto));
+  background: rgb(var(--venture-morado));
   color: #ffffff;
 }
 
@@ -334,9 +334,13 @@ button.shopify-payment-button__button--unbranded {
 /* Los esquemas claros pintan los botones con el fondo y el texto del esquema: quedan de contorno.
    Al pasar el ratón se rellenan. */
 .color-scheme-1 .button:not(.button--tertiary):hover,
-.color-scheme-2 .button:not(.button--tertiary):hover {
-  background-color: rgb(var(--color-foreground));
-  color: rgb(var(--color-background));
+.color-scheme-2 .button:not(.button--tertiary):hover,
+.color-scheme-6 .button:not(.button--tertiary):hover {
+  --color-button: var(--venture-morado);
+  --color-button-text: 255, 255, 255;
+  --alpha-button-background: 1;
+  background-color: rgb(var(--venture-morado));
+  color: #ffffff;
 }
 
 .button {
@@ -348,9 +352,19 @@ button.shopify-payment-button__button--unbranded {
 .cart__checkout-button,
 #checkout,
 #CartDrawer-Checkout {
-  --color-button: var(--color-foreground);
-  --color-button-text: var(--color-background);
+  /* Morado #330066 (2 nov 2026): las acciones de compra van rellenas en el morado de la marca. */
+  --color-button: var(--venture-morado);
+  --color-button-text: 255, 255, 255;
   --alpha-button-background: 1;
+}
+
+.product-form__submit:hover,
+.cart__checkout-button:hover,
+#checkout:hover,
+#CartDrawer-Checkout:hover {
+  --color-button: 74, 26, 133;
+  background-color: rgb(74, 26, 133);
+  color: #ffffff;
 }
 
 /* =========================================================
@@ -638,12 +652,12 @@ button.venture-idioma__opcion:hover {
 }
 
 .venture-fav[aria-pressed='true'] .venture-fav__icono {
-  color: rgb(var(--venture-cobalto));
+  color: rgb(var(--venture-morado));
 }
 
 .venture-look__contador,
 .venture-novedades__tab:focus-visible {
-  outline-color: rgb(var(--venture-cobalto));
+  outline-color: rgb(var(--venture-morado));
 }
 
 /* ---------- Prueba: subrayados en morado #330066 ---------- */
@@ -652,4 +666,9 @@ button.venture-idioma__opcion:hover,
 .rte a:not(.button),
 .footer .list-menu__item--link:hover {
   text-decoration-color: rgb(var(--venture-morado));
+}
+
+/* ---------- Morado #330066 en más botones (2 nov 2026) ---------- */
+.venture-idioma__opcion--activa {
+  color: rgb(var(--venture-morado));
 }
