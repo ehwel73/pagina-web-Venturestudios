@@ -1,0 +1,174 @@
+{%- comment -%}
+  Venture Studios: botón flotante de contacto con el símbolo original de la marca.
+  Fijo en una esquina inferior en todas las páginas (está en el grupo del pie).
+  Sin enlace elegido, lleva a la página de contacto (/pages/contact).
+{%- endcomment -%}
+
+{%- liquid
+  assign contact_url = section.settings.link
+  if contact_url == blank
+    if routes.root_url == '/'
+      assign contact_url = '/pages/contact'
+    else
+      assign contact_url = routes.root_url | append: '/pages/contact'
+    endif
+  endif
+-%}
+
+{%- if section.settings.show -%}
+  <a
+    href="{{ contact_url }}"
+    class="venture-contacto venture-contacto--{{ section.settings.position }} venture-contacto--{{ section.settings.style }}"
+    aria-label="{{ section.settings.label | escape }}"
+    title="{{ section.settings.label | escape }}"
+    {% if section.settings.new_tab %}
+      target="_blank" rel="noopener"
+    {% endif %}
+  >
+    <svg
+      class="venture-contacto__simbolo"
+      viewBox="0 70.1 1000 859.8"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path fill-rule="evenodd" d="M1000.0,484.9L629.4,491.0L546.0,536.0L534.8,565.5L426.0,676.3L561.4,633.6L655.8,599.5L658.4,600.0L623.4,696.9L609.1,668.8L572.1,650.7L572.4,929.9L759.8,564.1ZM470.5,354.5L54.5,356.8L373.5,451.8ZM874.9,70.1L615.7,295.2L257.2,614.3L-0.0,827.8L369.2,687.4L493.1,565.1L373.0,606.0L372.8,604.0L464.6,502.2L482.7,479.7L498.6,466.8L508.8,453.6L554.9,405.7L556.1,406.8L537.6,443.9L509.8,476.4L575.2,477.1L839.4,121.4Z"/>
+    </svg>
+  </a>
+{%- endif -%}
+
+<style>
+  .venture-contacto {
+    position: fixed;
+    bottom: calc(1.6rem + env(safe-area-inset-bottom, 0px));
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    box-shadow: 0 0.6rem 2.4rem rgba(22, 21, 19, 0.18), 0 0 0 0.1rem rgba(22, 21, 19, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .venture-contacto--right {
+    right: 1.6rem;
+  }
+
+  .venture-contacto--left {
+    left: 1.6rem;
+  }
+
+  .venture-contacto--light {
+    background: #ffffff;
+    color: #161513;
+  }
+
+  .venture-contacto--dark {
+    background: #161513;
+    color: #ffffff;
+  }
+
+  .venture-contacto__simbolo {
+    width: 3rem;
+    height: auto;
+  }
+
+  .venture-contacto:hover {
+    transform: translateY(-0.2rem) scale(1.04);
+    box-shadow: 0 1rem 3rem rgba(22, 21, 19, 0.24), 0 0 0 0.1rem rgba(22, 21, 19, 0.06);
+  }
+
+  .venture-contacto:focus-visible {
+    outline: 0.2rem solid #161513;
+    outline-offset: 0.3rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .venture-contacto {
+      bottom: calc(2.4rem + env(safe-area-inset-bottom, 0px));
+      width: 6.4rem;
+      height: 6.4rem;
+    }
+
+    .venture-contacto--right {
+      right: 2.4rem;
+    }
+
+    .venture-contacto--left {
+      left: 2.4rem;
+    }
+
+    .venture-contacto__simbolo {
+      width: 3.4rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .venture-contacto,
+    .venture-contacto:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "VS · Botón de contacto",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show",
+      "label": "Mostrar el botón",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace",
+      "info": "Vacío: lleva a la página de contacto (/pages/contact). También puedes poner un enlace de WhatsApp o de correo."
+    },
+    {
+      "type": "checkbox",
+      "id": "new_tab",
+      "label": "Abrir en una pestaña nueva",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Texto para lectores de pantalla",
+      "default": "Contacto"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Esquina",
+      "options": [
+        { "value": "right", "label": "Abajo a la derecha" },
+        { "value": "left", "label": "Abajo a la izquierda" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Estilo",
+      "options": [
+        { "value": "light", "label": "Blanco con símbolo negro" },
+        { "value": "dark", "label": "Negro con símbolo blanco" }
+      ],
+      "default": "light"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VS · Botón de contacto"
+    }
+  ]
+}
+{% endschema %}
