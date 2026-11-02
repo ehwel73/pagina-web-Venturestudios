@@ -756,15 +756,9 @@
 
 /* Botón de compra relleno, como Añadir al carrito. */
 .venture-look__boton {
-  --color-button: var(--venture-morado, 23, 25, 28);
-  --color-button-text: 255, 255, 255;
+  --color-button: var(--color-foreground);
+  --color-button-text: var(--color-background);
   --alpha-button-background: 1;
-}
-
-.venture-look__boton:hover {
-  --color-button: 74, 26, 133;
-  background-color: rgb(74, 26, 133);
-  color: #ffffff;
 }
 
 .venture-look__mensaje {
@@ -1261,44 +1255,4 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-}
-
-/* ---------- Prueba: subrayados en morado #330066 (variable en venture-theme.css) ---------- */
-.venture-editorial__link,
-.venture-novedades__all,
-.venture-pie__enviar {
-  border-bottom-color: rgb(var(--venture-morado, 23, 25, 28));
-}
-
-.venture-favoritos__vacio a,
-.venture-look__mensaje a,
-.venture-about__social-list a,
-.venture-pie__legal a,
-.venture-pie__columna a:hover {
-  text-decoration-color: rgb(var(--venture-morado, 23, 25, 28));
-}
-
-/* ---------- Morado #330066 en más botones (2 nov 2026) ---------- */
-.venture-novedades__tab[aria-selected='true'] {
-  background: rgb(var(--venture-morado, 23, 25, 28));
-  border-color: rgb(var(--venture-morado, 23, 25, 28));
-  color: #ffffff;
-}
-
-.venture-novedades__tab:not([aria-selected='true']):hover {
-  border-color: rgb(var(--venture-morado, 23, 25, 28));
-  color: rgb(var(--venture-morado, 23, 25, 28));
-}
-
-.venture-look__flecha {
-  color: rgb(var(--venture-morado, 23, 25, 28));
-}
-
-.venture-pie__enviar:hover {
-  color: rgb(var(--venture-morado, 23, 25, 28));
-}
-
-.venture-pie__email:focus-visible {
-  border-color: rgb(var(--venture-morado, 23, 25, 28));
-  box-shadow: 0 0 0 0.1rem rgb(var(--venture-morado, 23, 25, 28));
 }

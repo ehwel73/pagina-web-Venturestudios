@@ -34,12 +34,10 @@ body {
 /* Paleta "Noche" (provisional, 2 nov 2026). El cobalto es el acento: solo en detalles pequeños. */
 :root {
   --venture-cobalto: 43, 68, 224;
-  /* Prueba (2 nov 2026): morado #330066 en el botón del símbolo y en los subrayados. */
-  --venture-morado: 51, 0, 102;
 }
 
 ::selection {
-  background: rgb(var(--venture-morado));
+  background: rgb(var(--venture-cobalto));
   color: #ffffff;
 }
 
@@ -334,13 +332,9 @@ button.shopify-payment-button__button--unbranded {
 /* Los esquemas claros pintan los botones con el fondo y el texto del esquema: quedan de contorno.
    Al pasar el ratón se rellenan. */
 .color-scheme-1 .button:not(.button--tertiary):hover,
-.color-scheme-2 .button:not(.button--tertiary):hover,
-.color-scheme-6 .button:not(.button--tertiary):hover {
-  --color-button: var(--venture-morado);
-  --color-button-text: 255, 255, 255;
-  --alpha-button-background: 1;
-  background-color: rgb(var(--venture-morado));
-  color: #ffffff;
+.color-scheme-2 .button:not(.button--tertiary):hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }
 
 .button {
@@ -352,19 +346,9 @@ button.shopify-payment-button__button--unbranded {
 .cart__checkout-button,
 #checkout,
 #CartDrawer-Checkout {
-  /* Morado #330066 (2 nov 2026): las acciones de compra van rellenas en el morado de la marca. */
-  --color-button: var(--venture-morado);
-  --color-button-text: 255, 255, 255;
+  --color-button: var(--color-foreground);
+  --color-button-text: var(--color-background);
   --alpha-button-background: 1;
-}
-
-.product-form__submit:hover,
-.cart__checkout-button:hover,
-#checkout:hover,
-#CartDrawer-Checkout:hover {
-  --color-button: 74, 26, 133;
-  background-color: rgb(74, 26, 133);
-  color: #ffffff;
 }
 
 /* =========================================================
@@ -648,27 +632,14 @@ button.venture-idioma__opcion:hover {
 /* Toque nocturno: el cobalto marca lo nuevo y lo activo, nunca superficies grandes. */
 .header__active-menu-item,
 .header__menu-item:hover span {
-  box-shadow: inset 0 -1px 0 rgb(var(--venture-morado));
+  box-shadow: inset 0 -1px 0 rgb(var(--venture-cobalto));
 }
 
 .venture-fav[aria-pressed='true'] .venture-fav__icono {
-  color: rgb(var(--venture-morado));
+  color: rgb(var(--venture-cobalto));
 }
 
 .venture-look__contador,
 .venture-novedades__tab:focus-visible {
-  outline-color: rgb(var(--venture-morado));
-}
-
-/* ---------- Prueba: subrayados en morado #330066 ---------- */
-.header__icon:hover .venture-header-text,
-button.venture-idioma__opcion:hover,
-.rte a:not(.button),
-.footer .list-menu__item--link:hover {
-  text-decoration-color: rgb(var(--venture-morado));
-}
-
-/* ---------- Morado #330066 en más botones (2 nov 2026) ---------- */
-.venture-idioma__opcion--activa {
-  color: rgb(var(--venture-morado));
+  outline-color: rgb(var(--venture-cobalto));
 }
